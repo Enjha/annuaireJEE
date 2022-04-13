@@ -1,0 +1,47 @@
+.annuaireAccess {
+    border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    font-size: 25px;
+    background-color: #222;
+    padding: 17px 60px;
+    margin: 50px auto;
+    width: 20%;
+}
+
+.annuaireAccess span {
+    position: relative;
+    z-index: 1;
+}
+
+.annuaireAccess:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 490%;
+    width: 100%;
+    background: #332cf2;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+.annuaireAccess:hover{
+    text-decoration: none;
+    color: white;
+    transition: all .5s ease-in-out;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.20);
+}
+.annuaireAccess:hover:after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+
+}
