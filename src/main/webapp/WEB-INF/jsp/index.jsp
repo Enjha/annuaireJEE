@@ -4,10 +4,10 @@
 <div class="main">
     <div class="connection-button">
         <sec:authorize access="!isAuthenticated()">
-            <a class="connectionButton" href="/login">LOG IN</a>
+            <a class="connectionButton" href="${pageContext.request.contextPath}/login">LOG IN</a>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-            <a class="connectionButton" href="/logout">LOG OUT</a>
+            <a class="connectionButton" href="${pageContext.request.contextPath}/logout">LOG OUT</a>
         </sec:authorize>
     </div>
 
