@@ -55,16 +55,4 @@ public class GroupController {
 		final var result = repo.findByNameLike("%" + name + "%");
 		return new ModelAndView("group", "groups", result);
 	}
-
-
-	@ModelAttribute("searchGroups")
-	public Map<Long, String> searchGroups() {
-		Map<Long, String> groupResult = new LinkedHashMap<>();
-		ArrayList<Group> groups = new ArrayList<>(repo.findAll());
-		int i = 0;
-		for(Group group : groups){
-			groupResult.put(group.getId(), group.getName());
-		}
-		return groupResult;
-	}
 }

@@ -44,7 +44,6 @@
             Il faut prévoir un mécanisme de récupération du mot de passe.
         </p>
     </div>
-
 </div>
 </body>
 <footer>
