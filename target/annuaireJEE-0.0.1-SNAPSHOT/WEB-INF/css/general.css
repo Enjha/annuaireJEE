@@ -1,0 +1,11 @@
+html {
+    font: 1.3em "Didot", serif;
+}
+
+.main {
+    padding: 40px;
+}
+
+.main-title{
+    font-size: 4em;
+}

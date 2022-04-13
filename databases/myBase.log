@@ -1,0 +1,56 @@
+/*C12*/SET SCHEMA PUBLIC
+drop table if exists person CASCADE 
+drop table if exists tgroup CASCADE 
+drop table if exists xuser CASCADE 
+drop table if exists xuser_roles CASCADE 
+drop sequence hibernate_sequence if exists
+create sequence hibernate_sequence start with 1 increment by 1
+create table person (id bigint not null, birth_day date not null, email varchar(200) not null, first_name varchar(200) not null, last_name varchar(200) not null, password varchar(15) not null, website varchar(200), own_group bigint not null, primary key (id))
+create table tgroup (id bigint not null, name varchar(200) not null, primary key (id))
+create table xuser (user_name varchar(255) not null, password varchar(255), primary key (user_name))
+create table xuser_roles (xuser_user_name varchar(255) not null, roles varchar(255))
+alter table person add constraint FKhiplqdhupru5r1f84l6xyyuh2 foreign key (own_group) references tgroup
+alter table xuser_roles add constraint FKesmmn419044bxf3nm5tkannip foreign key (xuser_user_name) references xuser
+INSERT INTO TGROUP VALUES(1,'Groupe 1')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 2
+COMMIT
+INSERT INTO TGROUP VALUES(2,'Groupe 2')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 3
+COMMIT
+INSERT INTO PERSON VALUES(3,'3870-12-12','thierry.bourdon@hotmail.fr','Thierry','Bourdon','bourdon765',NULL,1)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 4
+COMMIT
+INSERT INTO PERSON VALUES(4,'3873-04-28','didier.deschamps@hotmail.fr','Didier','Deschamps','dudul123',NULL,2)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 5
+COMMIT
+INSERT INTO XUSER VALUES('aaa','$2a$10$cH2YoInUT4wDLlAHoffOMeG6IlAmC/AKK7EG8d9XmlYmuLUsGMzf.')
+INSERT INTO XUSER_ROLES VALUES('aaa','ADMIN')
+INSERT INTO XUSER_ROLES VALUES('aaa','USER')
+COMMIT
+INSERT INTO XUSER VALUES('bbb','$2a$10$KcJsDq9OsYwX6yG0kUnEFu6MpiuUHuzgmsJncOHSoJt7FMAwt1oku')
+INSERT INTO XUSER_ROLES VALUES('bbb','USER')
+COMMIT
+drop table if exists person CASCADE 
+drop table if exists tgroup CASCADE 
+drop table if exists xuser CASCADE 
+drop table if exists xuser_roles CASCADE 
+drop sequence hibernate_sequence if exists
+DISCONNECT
+/*C13*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C15*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C16*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C17*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C18*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C19*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C20*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C21*/SET SCHEMA PUBLIC
+DISCONNECT

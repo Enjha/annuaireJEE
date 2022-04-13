@@ -1,0 +1,4 @@
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/res/*</url-pattern>
+</servlet-mapping>
