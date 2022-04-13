@@ -34,8 +34,8 @@
         </c:forEach>
     </table>
     <p style="text-align: center;">
-        <a class="btn btn-info" href="${edit}">Creer nouvel utilisateur</a>
-        <a class="btn btn-info" href="${group}">Voir les groupes</a>
+        <a class="buttonDesign" href="${edit}">Creer nouvel utilisateur</a>
+        <a class="buttonDesign" href="${group}">Voir les groupes</a>
     </p>
 </div>
 

@@ -15,7 +15,7 @@
         </c:forEach>
     </table>
     <p>
-        <a class="btn btn-info" href="${edit}">Create new product</a>
+        <a class="buttonDesign" href="${edit}">Create new product</a>
     </p>
 </div>
 

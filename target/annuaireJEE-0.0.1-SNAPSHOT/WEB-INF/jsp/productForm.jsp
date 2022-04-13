@@ -46,7 +46,7 @@
 			<form:errors path="code.number" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group">
-			<button type="submit" class="btn btn-info">Submit</button>
+			<a class="buttonDesign">Submit</a>
 		</div>
 	</form:form>
 </div>

@@ -1,9 +1,9 @@
 .footer-div{
     text-align: center;
-    background-color: #332cf2;
+    background-color: #645fe8;
     padding-top: 10px;
     color: white;
-    margin: 60px 0;
+    margin: 30px 0;
 }
 
 .contact{
@@ -12,6 +12,7 @@
 }
 
 .signe{
+    text-align: center;
     font-size: 80%;
-    color: darkgrey;
+    color: #575757;
 }

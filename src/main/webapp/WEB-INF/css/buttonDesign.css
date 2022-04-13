@@ -1,4 +1,5 @@
-.connectionButton {
+.buttonDesign , .connectionButton{
+    position: relative;
     backface-visibility: hidden;
     background: #332cf2;
     border: 0;
@@ -13,7 +14,6 @@
     letter-spacing: -.01em;
     line-height: 1.3;
     padding: 1rem 1.25rem;
-    position: relative;
     text-align: left;
     text-decoration: none;
     transform: translateZ(0) scale(1);
@@ -23,26 +23,33 @@
     touch-action: manipulation;
 }
 
-.connectionButton:disabled {
+.connectionButton{
+    z-index: 10;
+    position: fixed;
+    right: 30px;
+    top: 30px;
+}
+
+.buttonDesign:disabled , .connectionButton:disabled {
     color: #787878;
     cursor: auto;
 }
 
-.connectionButton:not(:disabled):hover {
+.buttonDesign:not(:disabled):hover , .connectionButton:not(:disabled):hover {
     transform: scale(1.05);
     text-decoration: none;
     color: #EEEEEE;
 }
 
-.connectionButton:not(:disabled):hover:active {
+.buttonDesign:not(:disabled):hover:active , .connectionButton:not(:disabled):hover:active {
     transform: scale(1.05) translateY(.125rem);
 }
 
-.connectionButton:focus {
+.buttonDesign:focus , .connectionButton:focus{
     outline: 0 solid transparent;
 }
 
-.connectionButton:focus:before {
+.buttonDesign:focus:before , .connectionButton:focus:before {
     border-width: .125rem;
     content: "";
     left: calc(-1 * .375rem);
@@ -53,10 +60,10 @@
     user-select: none;
 }
 
-.connectionButton:focus:not(:focus-visible) {
+.buttonDesign:focus:not(:focus-visible) , .connectionButton:focus:not(:focus-visible){
     outline: 0 solid transparent;
 }
 
-.connectionButton:not(:disabled):active {
+.buttonDesign:not(:disabled):active , .connectionButton:not(:disabled):active{
     transform: translateY(.125rem);
 }
