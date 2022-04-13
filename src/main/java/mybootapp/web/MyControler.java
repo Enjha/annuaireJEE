@@ -13,7 +13,7 @@ public class MyControler {
 	 * Récupérer un message particulier dans le fichier de configuration pour ne pas
 	 * utiliser de constantes dans le code.
 	 */
-	@Value("${application.message:Hello World}")
+	@Value("${application.message:Ce site permet d'accéder à un annuaire de personnes}")
 	private String message;
 
 	/*

@@ -10,7 +10,8 @@
        value="/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js"/>
 <c:url var="jquery_js" value="/webjars/jquery/3.5.1/jquery.min.js"/>
 <c:url var="cssFiles" value="../css/general.css"/>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8" %>
 
 <html>
 <head>

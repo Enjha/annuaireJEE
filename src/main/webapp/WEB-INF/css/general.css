@@ -2,10 +2,23 @@ html {
     font: 1.3em "Didot", serif;
 }
 
-.main {
+.connection-button {
     padding: 40px;
 }
 
-.main-title{
-    font-size: 4em;
+.main-title {
+    font-size: 5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.content {
+    margin: 80px 0;
+    text-align: center;
+    background-color: #332cf2;
+    padding: 30px;
+}
+
+.content > p {
+    color: white;
 }

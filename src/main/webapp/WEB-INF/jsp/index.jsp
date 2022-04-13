@@ -2,7 +2,7 @@
 <c:url var="list" value="/person"/>
 <body>
 <div class="main">
-    <div>
+    <div class="connection-button">
         <sec:authorize access="!isAuthenticated()">
             <a class="connectionButton" href="/login">LOG IN</a>
         </sec:authorize>
@@ -11,16 +11,11 @@
         </sec:authorize>
     </div>
 
-    <div class="container">
-        <div class="container-title">
-            <h1 class="main-title"><c:out value="${message}"/></h1>
-            <p>
-                Message is
-
-            </p>
-            <p>
-                <a href="${list}">Annuaire</a>
-            </p>
+    <div class="container-title">
+        <h1 class="main-title"><c:out value="${message}"/></h1>
+        <div class="content">
+            <p>Pour accéder à l'annuaire des personnes, il suffit de cliquer juste en dessous.</p>
+            <a class="access-annuaire" href="${list}">Annuaire</a>
         </div>
     </div>
 
