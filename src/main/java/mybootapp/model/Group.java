@@ -34,8 +34,8 @@ public class Group implements Serializable{
 	@Column(name = "name", length = 200, nullable = false)
 	private String name;
 
-	//@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "ownGroup")
-	//private Set<Person> persons;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "ownGroup")
+	private Set<Person> persons;
 	
 
 	/**
@@ -64,7 +64,7 @@ public class Group implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-/*
+
 	public Set<Person> getPersons() {
 		return persons;
 	}
@@ -81,5 +81,5 @@ public class Group implements Serializable{
 			this.persons = new HashSet<>();
 		}
 		this.persons.add(person);
-	} */
+	}
 }

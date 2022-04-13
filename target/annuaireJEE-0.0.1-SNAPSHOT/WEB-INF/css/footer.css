@@ -1,4 +1,15 @@
 .footer-div{
     text-align: center;
     background-color: #EEEEEE;
+    padding: 30px;
+}
+
+.contact{
+    display: inline-flex;
+    gap: 50px;
+}
+
+.copyright{
+    font-size: 80%;
+    color: darkgrey;
 }

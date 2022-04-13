@@ -12,14 +12,16 @@
     </div>
 
     <div class="container">
-        <h1 class="main-title">Annuaire de personnes - JEE</h1>
-        <p>
-            Message is
-            <c:out value="${message}"/>
-        </p>
-        <p>
-            <a href="${list}">Annuaire</a>
-        </p>
+        <div class="container-title">
+            <h1 class="main-title"><c:out value="${message}"/></h1>
+            <p>
+                Message is
+
+            </p>
+            <p>
+                <a href="${list}">Annuaire</a>
+            </p>
+        </div>
     </div>
 
 </div>

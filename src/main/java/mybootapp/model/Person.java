@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity(name = "Person")
-@Table(name = "TGroup")
+@Table(name = "TPerson")
 @Data
 public class Person implements Serializable {
 
