@@ -15,10 +15,15 @@ html {
 .content {
     margin: 80px 0;
     text-align: center;
-    background-color: #332cf2;
+    background-color: #e4e4ff;
     padding: 30px;
 }
 
-.content > p {
-    color: white;
+.content > p{
+    font-size: 30px;
+}
+
+.blabla{
+    text-align: center;
+    margin: 0 20px;
 }
