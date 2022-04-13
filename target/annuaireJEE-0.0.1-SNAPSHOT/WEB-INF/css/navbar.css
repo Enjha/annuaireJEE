@@ -1,0 +1,44 @@
+.menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 6.1em;
+    background-color : white;
+    padding: 25px 0 20px 0;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    box-shadow: 1px 10px 12px rgba(59, 59, 59, 0.61);
+    filter:progid:DXImageTransform.Microsoft.Shadow(color='#000000', Direction=200, Strength=12);
+    zoom: 1;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+}
+
+.containerOnglet{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    font-size: 40px;
+
+}
+
+.containerOnglet a{
+    text-transform: uppercase;
+    color: #332cf2;
+    font-weight: bold;
+}
+
+.containerOnglet a:hover{
+    text-decoration: none;
+    color: #635dee;
+}
+
+.onglet{
+    padding: 10px;
+}
+
+.containerOnglet .onglet:hover{
+    border-bottom: 3px #635dee solid;
+}
