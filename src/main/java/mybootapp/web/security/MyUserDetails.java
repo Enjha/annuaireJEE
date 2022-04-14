@@ -1,22 +1,22 @@
-package mybootapp.security;
+package mybootapp.web.security;
 
+import mybootapp.repo.XUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import mybootapp.repo.XUserRepository;
 
 @Service
 public class MyUserDetails implements UserDetailsService {
 
     @Autowired
-    private XUserRepository userRepository;
+    private XUserRepository userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        var user = userRepository.findById(username);
+        var user = userRepo.findById(username);
         if (user.isEmpty()) {
             throw new UsernameNotFoundException(username);
         }

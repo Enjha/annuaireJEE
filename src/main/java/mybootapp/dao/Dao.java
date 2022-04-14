@@ -9,19 +9,27 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import mybootapp.model.XUser;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 
 
-@Repository("/Dao")
+@Service
+@Repository("Dao")
 @Transactional
 public class Dao {
 
     @PersistenceContext
     EntityManager em;
+
+    public <T> void add(T entity) {
+        System.err.println("Entity added.");
+        em.persist(entity);
+    }
 
     public <T> Collection<T> findAll(Class<T> clazz) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -63,6 +71,15 @@ public class Dao {
         }
     }
 
+    public void saveUSer(Person p) {
+        if(findGroup(p.getId()) == null){
+            em.persist(p);
+            System.err.println("Entity added.");
+        }else {
+            em.merge(p);
+            System.err.println("Entity updated.");
+        }
+    }
     public void saveGroup(Group g) {
         if(findGroup(g.getId()) == null){
             em.persist(g);
@@ -81,5 +98,10 @@ public class Dao {
         }else{
             System.err.println("Entity doesn't exist.");
         }
+    }
+
+
+    public boolean isConnectedAs(XUser user, Person person) {
+        return user.getUserName().equals(person.getEmail());
     }
 }

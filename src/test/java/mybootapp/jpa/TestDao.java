@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import mybootapp.Starter;
+import mybootapp.web.Starter;
 import mybootapp.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

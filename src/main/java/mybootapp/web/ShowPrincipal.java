@@ -1,4 +1,4 @@
-package mybootapp;
+package mybootapp.web;
 
 import java.security.Principal;
 

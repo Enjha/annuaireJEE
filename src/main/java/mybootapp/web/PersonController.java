@@ -1,4 +1,4 @@
-package mybootapp;
+package mybootapp.web;
 
 import java.util.*;
 
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import mybootapp.model.Person;
 import mybootapp.repo.PersonRepository;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/person")
@@ -33,6 +34,9 @@ public class PersonController {
 
     @Autowired
     XUserRepository userRepo;
+
+    @Autowired
+    User user;
 
     protected final Log logger = LogFactory.getLog(getClass());
 
@@ -108,12 +112,6 @@ public class PersonController {
         return "redirect:/person/";
     }
 
-
-    @RequestMapping(value = "/show", method = RequestMethod.GET)
-    public String showPerson(@ModelAttribute Person p) {
-        return "personShow";
-    }
-
     @ModelAttribute("personGroup")
     public Map<Long, String> personGroups() {
         Map<Long, String> groupResult = new LinkedHashMap<>();
@@ -122,6 +120,20 @@ public class PersonController {
             groupResult.put(group.getId(), group.getName());
         }
         return groupResult;
+    }
+
+    // controleur d'affichage d'une personne
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    public String showPerson(@ModelAttribute Person p, final RedirectAttributes redirAtt) {
+        if (p == null) {
+            redirAtt.addFlashAttribute("errorPersonId", true);
+            return "redirect:/actions/user/home";
+        }
+        else if (p.getEmail().equals(user.getName())) {
+            return "redirect:edit?personId="+p.getId();
+        }
+        System.out.println(p.getEmail() + " " + user.getName());
+        return "personShow";
     }
 
     @RequestMapping("/find")

@@ -1,4 +1,4 @@
-package mybootapp.security;
+package mybootapp.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

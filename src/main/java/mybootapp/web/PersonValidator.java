@@ -1,4 +1,4 @@
-package mybootapp;
+package mybootapp.web;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;

@@ -1,5 +1,6 @@
-package mybootapp;
+package mybootapp.web;
 
+import mybootapp.model.XUser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,12 @@ public class UserController {
     @RequestMapping(value = "/login")
     public String login() {
         logger.info("login user " + user);
-        user.setName("It's me");
         return "user";
     }
 
     @RequestMapping(value = "/logout")
     public String logout() {
         logger.info("logout user " + user);
-        user.setName("Anonymous");
         return "user";
     }
 }

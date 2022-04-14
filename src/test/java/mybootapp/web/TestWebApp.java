@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import mybootapp.Starter;
-
 @SpringBootTest
 @ContextConfiguration(classes = Starter.class)
 @AutoConfigureMockMvc

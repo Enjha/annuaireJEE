@@ -1,17 +1,15 @@
 package mybootapp.model;
 
-import java.util.Set;
-
-import javax.persistence.Basic;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.context.annotation.SessionScope;
+
+import javax.persistence.*;
+import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Data
