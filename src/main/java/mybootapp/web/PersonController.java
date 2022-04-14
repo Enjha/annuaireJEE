@@ -71,7 +71,10 @@ public class PersonController {
         return "personForm";
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/personNew", method = RequestMethod.GET)
+    public String newPerson() { return "personNewForm"; }
+
+    @ModelAttribute
     public Person newPerson(
             @RequestParam(value = "id", required = false) Long id)
     {
@@ -90,7 +93,6 @@ public class PersonController {
         logger.info("new person = " + p);
         return p ;
     }
-
     private BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -100,10 +102,23 @@ public class PersonController {
     PersonValidator validator;
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String savePerson(@ModelAttribute @Valid Person p, BindingResult result) {
+    public String saveEditPerson(@ModelAttribute @Valid Person p, BindingResult result) {
         validator.validate(p, result);
         if (result.hasErrors()) {
             return "personForm";
+        }
+        var encoder = passwordEncoder();
+        var user = new XUser(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
+        userRepo.save(user);
+        repo.save(p);
+        return "redirect:/person/";
+    }
+
+    @RequestMapping(value = "/personNew", method = RequestMethod.POST)
+    public String saveNewPerson(@ModelAttribute @Valid Person p, BindingResult result) {
+        validator.validate(p, result);
+        if (result.hasErrors()) {
+            return "personNewForm";
         }
         var encoder = passwordEncoder();
         var user = new XUser(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));

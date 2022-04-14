@@ -1,13 +1,13 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<c:url var="person" value="/person/" />
+<c:url var="home" value="/" />
 
 <div class="container">
 	<%@ include file="navBar.jsp" %>
 
 	<div class="container-title">
-		<h1 class="main-title">Modification</h1>
+		<h1 class="main-title">Inscription</h1>
 	</div>
 
 	<form:form method="POST" modelAttribute="person">
@@ -54,11 +54,11 @@
 			<form:errors path="ownGroup" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group" style="text-align: center;">
-			<button type="submit" class="btn btn-info" window.location = "http://www.example.com/">Modifier</button>
+			<button type="submit" class="btn btn-info" window.location = "http://www.example.com/">Inscription</button>
 		</div>
 	</form:form>
 	<div style="text-align: left;">
-		<a class="btn btn-info" href="${person}">Retour a l'annuaire</a>
+		<a class="btn btn-info" href="${home}">Retour a l'accueil</a>
 	</div>
 </div>
 

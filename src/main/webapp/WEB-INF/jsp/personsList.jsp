@@ -3,7 +3,8 @@
 <c:url var="group" value="/group/" />
 <c:url var="person" value="/person/" />
 <c:url var="edit" value="/person/edit" />
-<c:url var="findPersons" value="/person/find" />
+<c:url var="edit" value="/person/edit" />
+<c:url var="personNew" value="/person/personNew" />
 <c:url var="show" value="/person/show" />
 
 <%@ include file="navBar.jsp" %>
@@ -39,7 +40,7 @@
         </c:forEach>
     </table>
     <p style="text-align: center;">
-        <a class="btn btn-info" href="${edit}">Creer nouvel utilisateur</a>
+        <a class="btn btn-info" href="${personNew}">Creer nouvel utilisateur</a>
         <a class="btn btn-info" href="${group}">Voir les groupes</a>
     </p>
 </div>

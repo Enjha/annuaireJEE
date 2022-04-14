@@ -55,7 +55,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()//
                 .antMatchers("/", "/webjars/**", //
                         "/home", "/login", //
-                        "/calculator/**")//
+                        "/person/personNew")//
                 .permitAll()//
                 .antMatchers("/simple-user/**")//
                 .hasAnyAuthority("ADMIN") /// ****** NOUVEAU

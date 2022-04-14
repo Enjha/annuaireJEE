@@ -1,7 +1,10 @@
+<c:url var="inscription" value="/person/personNew" />
 <sec:authorize access="!isAuthenticated()">
+    <a class="connectionButton" href="${inscription}" style="margin-right: 150px;">S'inscrire</a>
     <a class="connectionButton" href="${pageContext.request.contextPath}/login">LOG IN</a>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
+    <a class="connectionButton" href="${inscription}" style="margin-right: 200px;">Inscription</a>
     <a class="connectionButton" href="${pageContext.request.contextPath}/logout">LOG OUT</a>
 </sec:authorize>
 

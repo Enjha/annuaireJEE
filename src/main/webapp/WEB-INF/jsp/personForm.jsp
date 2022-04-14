@@ -7,7 +7,7 @@
 	<%@ include file="navBar.jsp" %>
 
 	<div class="container-title">
-		<h1 class="main-title">Modification / Ajout</h1>
+		<h1 class="main-title">Modification</h1>
 	</div>
 
 	<form:form method="POST" modelAttribute="person">
@@ -54,7 +54,7 @@
 			<form:errors path="ownGroup" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group" style="text-align: center;">
-			<button type="submit" class="btn btn-info" window.location = "http://www.example.com/">Soumettre</button>
+			<button type="submit" class="btn btn-info" window.location = "http://www.example.com/">Modifier</button>
 		</div>
 	</form:form>
 	<div style="text-align: left;">
