@@ -4,6 +4,7 @@
 <c:url var="person" value="/person/" />
 <c:url var="edit" value="/person/edit" />
 <c:url var="findPersons" value="/person/find" />
+<c:url var="show" value="/person/show" />
 
 
 <div class="container">
@@ -23,19 +24,19 @@
     <table class="table table-hover">
         <c:forEach items="${persons}" var="pers">
             <tr>
-                <td><a href="${edit}?id=${pers.id}">
+                <td><a href="${show}?id=${pers.id}">
                     <c:out value="${pers.firstName}" />
                 </a></td>
                 <td><i><c:out value="${pers.lastName}" /></i></td>
                 <td><i><c:out value="${pers.email}" /></i></td>
-                <td><i><c:out value="${pers.birthDay}" /></i></td>
+                <td><i type="date" pattern="yyyy-mm-dd" ><c:out value="${pers.birthDay}"/></i></td>
                 <td><i><c:out value="${pers.ownGroup.name}" /></i></td>
             </tr>
         </c:forEach>
     </table>
     <p style="text-align: center;">
-        <a class="buttonDesign" href="${edit}">Creer nouvel utilisateur</a>
-        <a class="buttonDesign" href="${group}">Voir les groupes</a>
+        <a class="btn btn-info" href="${edit}">Creer nouvel utilisateur</a>
+        <a class="btn btn-info" href="${group}">Voir les groupes</a>
     </p>
 </div>
 

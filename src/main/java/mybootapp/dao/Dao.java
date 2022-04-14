@@ -1,9 +1,6 @@
 package mybootapp.dao;
 
-import mybootapp.model.Group;
-import mybootapp.model.Person;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,16 +8,21 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.Collection;
 
-@Repository("dao")
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import mybootapp.model.Group;
+import mybootapp.model.Person;
+
+
+@Repository("/Dao")
 @Transactional
-public class Dao implements IDao{
+public class Dao {
 
     @PersistenceContext
     EntityManager em;
 
-    @Override
     public <T> Collection<T> findAll(Class<T> clazz) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(clazz);
@@ -35,7 +37,6 @@ public class Dao implements IDao{
         return tq.getResultList();
     }
 
-    @Override
     public Person findPerson(long id) {
         if (em.find(Person.class, id) == null) {
             System.err.println("Entity not found.");
@@ -44,7 +45,6 @@ public class Dao implements IDao{
             return em.find(Person.class, id);
     }
 
-    @Override
     public Group findGroup(long id) {
         if (em.find(Group.class, id) == null) {
             System.err.println("Entity not found.");
@@ -53,7 +53,6 @@ public class Dao implements IDao{
             return em.find(Group.class, id);
     }
 
-    @Override
     public void savePerson(Person p) {
         if(findGroup(p.getId()) == null){
             em.persist(p);
@@ -64,7 +63,6 @@ public class Dao implements IDao{
         }
     }
 
-    @Override
     public void saveGroup(Group g) {
         if(findGroup(g.getId()) == null){
             em.persist(g);
@@ -75,7 +73,6 @@ public class Dao implements IDao{
         }
     }
 
-    @Override
     public <T> void remove(Class<T> clazz, Object pk) {
         T entity = em.find(clazz, pk);
         if (entity != null) {
@@ -86,4 +83,3 @@ public class Dao implements IDao{
         }
     }
 }
-

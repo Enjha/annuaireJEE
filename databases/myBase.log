@@ -5,7 +5,7 @@ drop table if exists xuser CASCADE
 drop table if exists xuser_roles CASCADE 
 drop sequence hibernate_sequence if exists
 create sequence hibernate_sequence start with 1 increment by 1
-create table person (id bigint not null, birth_day date not null, email varchar(200) not null, first_name varchar(200) not null, last_name varchar(200) not null, password varchar(15) not null, website varchar(200), own_group bigint not null, primary key (id))
+create table person (id bigint not null, birth_day timestamp not null, email varchar(30) not null, first_name varchar(20) not null, last_name varchar(20) not null, password varchar(15) not null, website varchar(200), own_group bigint, primary key (id))
 create table tgroup (id bigint not null, name varchar(200) not null, primary key (id))
 create table xuser (user_name varchar(255) not null, password varchar(255), primary key (user_name))
 create table xuser_roles (xuser_user_name varchar(255) not null, roles varchar(255))
@@ -17,18 +17,38 @@ COMMIT
 INSERT INTO TGROUP VALUES(2,'Groupe 2')
 ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 3
 COMMIT
-INSERT INTO PERSON VALUES(3,'3870-12-12','thierry.bourdon@hotmail.fr','Thierry','Bourdon','bourdon765',NULL,1)
+INSERT INTO PERSON VALUES(3,'3870-12-12 00:00:00.000000','thierry.bourdon@hotmail.fr','Thierry','Bourdon','bourdon765',NULL,1)
 ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 4
 COMMIT
-INSERT INTO PERSON VALUES(4,'3873-04-28','didier.deschamps@hotmail.fr','Didier','Deschamps','dudul123',NULL,2)
+INSERT INTO PERSON VALUES(4,'3873-04-28 00:00:00.000000','didier.deschamps@hotmail.fr','Didier','Deschamps','dudul123',NULL,2)
 ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 5
 COMMIT
-INSERT INTO XUSER VALUES('aaa','$2a$10$cH2YoInUT4wDLlAHoffOMeG6IlAmC/AKK7EG8d9XmlYmuLUsGMzf.')
-INSERT INTO XUSER_ROLES VALUES('aaa','ADMIN')
-INSERT INTO XUSER_ROLES VALUES('aaa','USER')
+INSERT INTO XUSER VALUES('thierry.bourdon@hotmail.fr','$2a$10$h1VbVFnhq9qp8/H4WTcht.9AjERF1dDKzJXXtq0t/6lv4LMehyNK.')
+INSERT INTO XUSER_ROLES VALUES('thierry.bourdon@hotmail.fr','USER')
 COMMIT
-INSERT INTO XUSER VALUES('bbb','$2a$10$KcJsDq9OsYwX6yG0kUnEFu6MpiuUHuzgmsJncOHSoJt7FMAwt1oku')
-INSERT INTO XUSER_ROLES VALUES('bbb','USER')
+INSERT INTO XUSER VALUES('didier.deschamps@hotmail.fr','$2a$10$ffv/NwPG9HgICPGVxNXENuvrVWbi.ESpEExWGc5nwCy3eDLlIhQzW')
+INSERT INTO XUSER_ROLES VALUES('didier.deschamps@hotmail.fr','USER')
+COMMIT
+INSERT INTO XUSER VALUES('admin','$2a$10$4Ax9ixq.TvnW86Tuz9PNUuRbtNyh39GaPotM7iMjoj7cJ3yzcpvCe')
+INSERT INTO XUSER_ROLES VALUES('admin','ADMIN')
+INSERT INTO XUSER_ROLES VALUES('admin','USER')
+COMMIT
+INSERT INTO TGROUP VALUES(5,'Groupe 1')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 6
+COMMIT
+INSERT INTO TGROUP VALUES(6,'Groupe 2')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 7
+COMMIT
+INSERT INTO PERSON VALUES(7,'3873-04-28 00:00:00.000000','didier.deschamps@hotmail.fr','Didier','Deschamps','dudul123',NULL,5)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 8
+COMMIT
+INSERT INTO PERSON VALUES(8,'3870-12-12 00:00:00.000000','thierry.bourdon@hotmail.fr','Thierry','Bourdon','bourdon765',NULL,6)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 9
+COMMIT
+INSERT INTO TGROUP VALUES(9,'Groupe 3')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 10
+COMMIT
+DELETE FROM PERSON WHERE ID=3
 COMMIT
 drop table if exists person CASCADE 
 drop table if exists tgroup CASCADE 

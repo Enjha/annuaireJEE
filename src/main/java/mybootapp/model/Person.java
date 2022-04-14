@@ -1,15 +1,25 @@
 package mybootapp.model;
 
-import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PostUpdate;
+import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity(name = "Person")
-@Table(name = "TPerson")
-@Data
 public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -26,20 +36,20 @@ public class Person implements Serializable {
 	private long id;
 
 	@Basic(optional = false)
-	@Column(name = "lastName", length = 200, nullable = false)
+	@Column(name = "lastName", length = 20, nullable = false)
 	private String lastName;
 
 	@Basic(optional = false)
-	@Column(name = "first_name", length = 200, nullable = false)
+	@Column(name = "first_name", length = 20, nullable = false)
 	private String firstName;
 
 	@Basic()
-	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	@Column(name = "birth_day", nullable = false)
 	private Date birthDay;
 
 	@Basic(optional = false)
-	@Column(name = "email", length = 200, nullable = false)
+	@Column(name = "email", length = 30, nullable = false)
 	private String email;
 
 	@Basic(optional = true)
@@ -50,7 +60,7 @@ public class Person implements Serializable {
 	@Column(name = "password", length = 15, nullable = false)
 	private String password;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "ownGroup")
 	private Group ownGroup;
 
