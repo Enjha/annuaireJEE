@@ -8,13 +8,14 @@
 		<h1 class="main-title"><c:out value="${person.lastName}"/> <c:out value="${person.firstName}"/></h1>
 	</div>
 
-	<p>Date de naissance : <fmt:formatDate type = "date" value = "${person.birthDay}"/></p>
-	<p>Email : <c:out value="${person.email}" /></p>
-	<p>Site web : <c:out value="${person.website}" /></p>
-	<p>Groupe : <c:out value="${person.ownGroup.name}" /></p>
+	<div style="text-align: center;">
+		<h3>Date de naissance :</h3> <h5><fmt:formatDate type = "date" value = "${person.birthDay}"/></h5><br/>
+		<h3>Email :</h3> <h5><c:out value="${person.email}" /></h5><br/>
+		<h3>Site Web :</h3> <h5><c:out value="${person.website}" /></h5><br/>
+		<h3>Groupe :</h3> <h5><c:out value="${person.ownGroup.name}" /></h5><br/>
+	</div>
 
-
-	<div style="text-align: left;">
+	<div style="text-align: center;">
 		<a class="buttonDesign" href="${annuaire}">Retour a l'annuaire</a>
 	</div>
 </div>

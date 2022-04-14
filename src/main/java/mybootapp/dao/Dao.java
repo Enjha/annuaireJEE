@@ -26,11 +26,6 @@ public class Dao {
     @PersistenceContext
     EntityManager em;
 
-    public <T> void add(T entity) {
-        System.err.println("Entity added.");
-        em.persist(entity);
-    }
-
     public <T> Collection<T> findAll(Class<T> clazz) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(clazz);
@@ -53,15 +48,6 @@ public class Dao {
             return em.find(Person.class, id);
     }
 
-    public <T> T find(Class<T> clazz, Object id) {
-        T entity = em.find(clazz, id);
-        if (entity == null)
-            System.err.println("Entity not found.");
-        else
-            System.err.println("Entity found.");
-        return entity;
-    }
-
     public Group findGroup(long id) {
         if (em.find(Group.class, id) == null) {
             System.err.println("Entity not found.");
@@ -80,15 +66,6 @@ public class Dao {
         }
     }
 
-    public void saveUSer(Person p) {
-        if(findGroup(p.getId()) == null){
-            em.persist(p);
-            System.err.println("Entity added.");
-        }else {
-            em.merge(p);
-            System.err.println("Entity updated.");
-        }
-    }
     public void saveGroup(Group g) {
         if(findGroup(g.getId()) == null){
             em.persist(g);
@@ -107,8 +84,5 @@ public class Dao {
         }else{
             System.err.println("Entity doesn't exist.");
         }
-    }
-    public boolean isConnectedAs(XUser user, Person person) {
-        return user.getUserName().equals(person.getEmail());
     }
 }
