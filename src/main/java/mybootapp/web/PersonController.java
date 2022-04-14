@@ -37,14 +37,6 @@ public class PersonController {
     @Autowired
     XUserRepository userRepo;
 
-    @Autowired
-    User user;
-
-    @ModelAttribute("user")
-    public User getUser() {
-        return user;
-    }
-
     protected final Log logger = LogFactory.getLog(getClass());
 
     @ModelAttribute("persons")
@@ -79,7 +71,7 @@ public class PersonController {
         return "personForm";
     }
 
-    @ModelAttribute
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public Person newPerson(
             @RequestParam(value = "id", required = false) Long id)
     {
@@ -98,6 +90,7 @@ public class PersonController {
         logger.info("new person = " + p);
         return p ;
     }
+
     private BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -137,9 +130,8 @@ public class PersonController {
             return "redirect:/actions/user/home";
         }
         else if (p.getEmail().equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
-            return "redirect:edit?personId="+p.getId();
+            return "redirect:edit?id="+p.getId();
         }
-        System.out.println(p.getEmail() + " " + user.getName());
         return "personShow";
     }
 
