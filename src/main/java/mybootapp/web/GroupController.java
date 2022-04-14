@@ -4,6 +4,10 @@ import javax.annotation.PostConstruct;
 
 import mybootapp.dao.Dao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +24,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/group")
 public class GroupController {
-
 	/*
 	 * Injection de la DAO de manipulation des groupes.
 	 */
@@ -30,12 +33,15 @@ public class GroupController {
 	@Autowired
 	GroupRepository groupRepo;
 
+	@Autowired
+	Dao dao;
+
 	@PostConstruct
 	public void init() {
 		Group group1 = new Group("Groupe 1");
 		Group group2 = new Group("Groupe 2");
-		groupRepo.save(group1);
-		groupRepo.save(group2);
+		dao.saveGroup(group1);
+		dao.saveGroup(group2);
 	}
 
 	@RequestMapping(" ")
@@ -46,7 +52,7 @@ public class GroupController {
 	@RequestMapping("/new")
 	public String newGroup() {
 		final var group = new Group(String.format("Groupe %d", repo.count()+1));
-		groupRepo.save(group);
+		dao.saveGroup(group);
 		return "redirect:/group";
 	}
 

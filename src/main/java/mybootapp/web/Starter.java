@@ -4,6 +4,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 import mybootapp.dao.Dao;
+import mybootapp.model.Group;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -11,6 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -25,9 +27,9 @@ import mybootapp.model.Person;
 import mybootapp.repo.GroupRepository;
 import mybootapp.repo.PersonRepository;
 
-@SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = {GroupRepository.class, PersonRepository.class})
-@EntityScan(basePackageClasses = Person.class)
+@SpringBootApplication()
+@EnableJpaRepositories(basePackageClasses = {GroupRepository.class, PersonRepository.class, Dao.class})
+@EntityScan(basePackageClasses = {Person.class, Group.class})
 @Configuration
 public class Starter extends SpringBootServletInitializer implements WebMvcConfigurer {
 

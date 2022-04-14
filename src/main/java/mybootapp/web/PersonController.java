@@ -5,18 +5,18 @@ import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
+import mybootapp.dao.Dao;
 import mybootapp.model.Group;
 import mybootapp.model.XUser;
 import mybootapp.repo.GroupRepository;
 import mybootapp.repo.XUserRepository;
-import mybootapp.web.security.MyUserPrincipal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +26,7 @@ import mybootapp.repo.PersonRepository;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@ContextConfiguration(classes = Starter.class)
 @RequestMapping("/person")
 public class PersonController {
 
@@ -38,12 +39,15 @@ public class PersonController {
     @Autowired
     XUserRepository userRepo;
 
+    @Autowired
+    Dao dao;
+
     protected final Log logger = LogFactory.getLog(getClass());
 
     @ModelAttribute("persons")
     Collection<Person> persons() {
         logger.info("Making list of persons");
-        return repo.findAll();
+        return dao.findAll(Person.class);
     }
 
     @SuppressWarnings("deprecation")
@@ -53,17 +57,17 @@ public class PersonController {
         Person p1 = new Person("Bourdon", "Thierry", new Date(1970, Calendar.DECEMBER, 12), "thierry.bourdon@hotmail.fr", null, "bourdon765");
         Person p2 = new Person("Deschamps", "Didier", new Date(1973, Calendar.APRIL, 28), "didier.deschamps@hotmail.fr", null, "dudul123");
 
-        p1.setOwnGroup(GroupRepo.getById(1L));
-        p2.setOwnGroup(GroupRepo.getById(2L));
+        p1.setOwnGroup(dao.findGroup(1L));
+        p2.setOwnGroup(dao.findGroup(2L));
 
-        repo.save(p1);
-        repo.save(p2);
+        dao.savePerson(p1);
+        dao.savePerson(p2);
     }
 
     @RequestMapping(value = " ", method = RequestMethod.GET)
     public ModelAndView listPersons() {
         logger.info("List of persons");
-        Collection<Person> persons = repo.findAll();
+        Collection<Person> persons = dao.findAll(Person.class);
         return new ModelAndView("personsList", "persons", persons);
     }
 
@@ -81,8 +85,8 @@ public class PersonController {
     {
         if (id != null) {
             logger.info("find person " + id);
-            var p = repo.findById(id);
-            return p.get();
+            var p = dao.findPerson(id);
+            return p;
         }
         Person p = new Person();
         p.setLastName("");
@@ -112,7 +116,7 @@ public class PersonController {
         var encoder = passwordEncoder();
         var user = new XUser(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
         userRepo.save(user);
-        repo.save(p);
+        dao.savePerson(p);
         return "redirect:/person/";
     }
 
@@ -125,14 +129,14 @@ public class PersonController {
         var encoder = passwordEncoder();
         var user = new XUser(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
         userRepo.save(user);
-        repo.save(p);
+        dao.savePerson(p);
         return "redirect:/person/";
     }
 
     @ModelAttribute("personGroup")
     public Map<Long, String> personGroups() {
         Map<Long, String> groupResult = new LinkedHashMap<>();
-        ArrayList<Group> groups = new ArrayList<>(GroupRepo.findAll());
+        ArrayList<Group> groups = new ArrayList<>(dao.findAll(Group.class));
         for(Group group : groups){
             groupResult.put(group.getId(), group.getName());
         }

@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PostUpdate;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
+import mybootapp.model.Group;
 
 @Entity(name = "Person")
 public class Person implements Serializable {
