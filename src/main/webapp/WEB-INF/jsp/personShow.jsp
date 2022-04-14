@@ -2,10 +2,12 @@
 <c:url var="annuaire" value="/person/" />
 
 <div class="container">
-	<h1>En savoir un peu plus...</h1>
+	<%@ include file="navBar.jsp" %>
 
-	<p>Nom : <c:out value="${person.lastName}" /></p>
-	<p>Prenom : <c:out value="${person.firstName}" /></p>
+	<div class="container-title">
+		<h1 class="main-title"><c:out value="${person.lastName}"/> <c:out value="${person.firstName}"/></h1>
+	</div>
+
 	<p>Date de naissance : <c:out value="${person.birthDay}" /></p>
 	<p>Email : <c:out value="${person.email}" /></p>
 	<p>Site web : <c:out value="${person.website}" /></p>

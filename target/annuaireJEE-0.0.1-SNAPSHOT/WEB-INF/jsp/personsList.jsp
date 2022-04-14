@@ -6,9 +6,13 @@
 <c:url var="findPersons" value="/person/find" />
 <c:url var="show" value="/person/show" />
 
-
+<%@ include file="navBar.jsp" %>
 <div class="container">
-    <h1>Person </h1>
+    <%@ include file="navBar.jsp" %>
+
+    <div class="container-title">
+        <h1 class="main-title">Annuaire</h1>
+    </div>
     <div style="text-align: center;">
         <form action="${findPersons}" method="post" >
             <sec:csrfInput/>

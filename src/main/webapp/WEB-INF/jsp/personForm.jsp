@@ -4,7 +4,11 @@
 <c:url var="person" value="/person/" />
 
 <div class="container">
-	<h1>Edit Person</h1>
+	<%@ include file="navBar.jsp" %>
+
+	<div class="container-title">
+		<h1 class="main-title">Modification / Ajout</h1>
+	</div>
 
 	<form:form method="POST" modelAttribute="person">
 

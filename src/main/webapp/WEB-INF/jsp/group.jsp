@@ -7,7 +7,12 @@
 
 
 <div class="container">
-	<h1>Groupes</h1>
+	<%@ include file="navBar.jsp" %>
+
+	<div class="container-title">
+		<h1 class="main-title">Groupes</h1>
+	</div>
+
 	<form action="${findGroups}" method="post">
 		<sec:csrfInput/>
 		<p style="text-align: center;">
