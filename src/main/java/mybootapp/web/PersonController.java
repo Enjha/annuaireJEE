@@ -1,5 +1,8 @@
 package mybootapp.web;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.annotation.PostConstruct;
@@ -53,10 +56,15 @@ public class PersonController {
 
     @SuppressWarnings("deprecation")
     @PostConstruct
-    public void init() {
+    public void init() throws ParseException {
         Group group1 = new Group("creation");
-        Person p1 = new Person("Bourdon", "Thierry",  new Date(1973, Calendar.APRIL, 28), "thierry.bourdon@hotmail.fr", null, "bourdon765");
-        Person p2 = new Person("Deschamps", "Didier", new Date(1920, Calendar.DECEMBER, 12), "didier.deschamps@hotmail.fr", null, "dudul123");
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthDayThierry = dateFormat.parse("1972-02-05");
+        Date birthDayDidier = dateFormat.parse("1978-05-29");
+
+        Person p1 = new Person("Bourdon", "Thierry",  birthDayThierry, "thierry.bourdon@hotmail.fr", null, "bourdon765");
+        Person p2 = new Person("Deschamps", "Didier", birthDayDidier, "didier.deschamps@hotmail.fr", null, "dudul123");
 
         p1.setOwnGroup(dao.findGroup(1L));
         p2.setOwnGroup(dao.findGroup(2L));
