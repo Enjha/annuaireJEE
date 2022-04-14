@@ -41,11 +41,6 @@
 			<form:errors path="website" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group">
-			<label for="password">Mot de passe :</label>
-			<form:input class="form-control" path="password" />
-			<form:errors path="password" cssClass="alert alert-warning" element="div" />
-		</div>
-		<div class="form-group">
 			<label for="ownGroup">Groupe :</label>
 			<form:select path="ownGroup" multiple="false" class="form-control">
 				<form:option value=""  label="--- Modifier le groupe de l'utilisateur ---" />

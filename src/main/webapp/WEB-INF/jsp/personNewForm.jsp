@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<c:url var="home" value="/" />
 
 <div class="container">
 	<%@ include file="navBar.jsp" %>
@@ -41,7 +42,7 @@
 		</div>
 		<div class="form-group">
 			<label for="password">Mot de passe :</label>
-			<form:input class="form-control" path="password" />
+			<form:input type="password" class="form-control" path="password" />
 			<form:errors path="password" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group">
@@ -57,7 +58,7 @@
 		</div>
 	</form:form>
 	<div style="text-align: left;">
-		<a class="buttonDesign" href="/">Retour a l'accueil</a>
+		<a class="buttonDesign" href="${home}">Retour a l'accueil</a>
 	</div>
 </div>
 
