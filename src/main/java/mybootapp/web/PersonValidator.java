@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,7 +28,7 @@ public class PersonValidator implements Validator {
 
         String firstNameValidation = firstNameValidation(person.getFirstName());
         String lastNameValidation = lastNameValidation(person.getLastName());
-        //birthDay
+        String birthDayValidation = birthDayValidation(person.getBirthDay());
         String emailValidation = emailValidation(person.getEmail());
         String websiteValidation = webSiteValidation(person.getWebsite());
         String passwordValidation = passwordValidation(person.getPassword());
@@ -42,12 +43,14 @@ public class PersonValidator implements Validator {
             errors.rejectValue("email", emailValidation);
         }
         if (!websiteValidation.equals("ok")) {
-            errors.rejectValue("email", websiteValidation);
+            errors.rejectValue("website", websiteValidation);
         }
         if (!passwordValidation.equals("ok")) {
             errors.rejectValue("password", passwordValidation);
         }
-
+        if (!birthDayValidation.equals("ok")) {
+            errors.rejectValue("birthDay", birthDayValidation);
+        }
 
     }
 
@@ -76,6 +79,14 @@ public class PersonValidator implements Validator {
         } else if (!mat.matches()) {
             return "person.lastName.invalid";
         } else
+            return "ok";
+    }
+
+    String birthDayValidation(Date birthDay) {
+        Date now = new Date();
+        if(birthDay.after(now))
+            return "person.birthday.invalid";
+        else
             return "ok";
     }
 

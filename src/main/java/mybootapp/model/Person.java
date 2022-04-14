@@ -15,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PostUpdate;
 import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity(name = "Person")
@@ -52,7 +50,6 @@ public class Person implements Serializable {
 	@Column(name = "email", length = 30, nullable = false)
 	private String email;
 
-	@Basic(optional = true)
 	@Column(name = "website", length = 200)
 	private String website;
 
@@ -60,7 +57,7 @@ public class Person implements Serializable {
 	@Column(name = "password", length = 20, nullable = false)
 	private String password;
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "ownGroup")
 	private Group ownGroup;
 
