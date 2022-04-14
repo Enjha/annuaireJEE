@@ -34,8 +34,6 @@
                 </a></td>
                 <td><i><c:out value="${pers.lastName}" /></i></td>
                 <td><i><c:out value="${pers.email}" /></i></td>
-                <td><fmt:formatDate type = "date" value = "${pers.birthDay}"/></td>
-                <td><i><c:out value="${pers.ownGroup.name}" /></i></td>
                 <sec:authorize access="hasAnyAuthority('ADMIN')">
                     <td><a href="${show}?id=${pers.id}"> voir </a></td>
                     <td><a href="${edit}?id=${pers.id}"> modifier </a></td>
@@ -43,6 +41,36 @@
             </tr>
         </c:forEach>
     </table>
+    <div id="pagination">
+
+        <c:url value="${person}" var="prev">
+            <c:param name="page" value="${page-1}"/>
+        </c:url>
+        <c:if test="${page > 1}">
+            <a href="<c:out value="${prev}" />" class="pn prev">Prev</a>
+        </c:if>
+
+        <c:forEach begin="1" end="${maxPages}" step="1" varStatus="i">
+            <c:choose>
+                <c:when test="${page == i.index}">
+                    <span>${i.index}</span>
+                </c:when>
+                <c:otherwise>
+                    <c:url value="${person}" var="url">
+                        <c:param name="page" value="${i.index}"/>
+                    </c:url>
+                    <a href='<c:out value="${url}" />'>${i.index}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <c:url value="${person}" var="next">
+            <c:param name="page" value="${page + 1}"/>
+        </c:url>
+        <c:if test="${page + 1 <= maxPages}">
+            <a href='<c:out value="${next}" />' class="pn next">Next</a>
+        </c:if>
+    </div>
+
     <p style="text-align: center; justify-content: center; display: flex; gap: 30px;">
         <a class="buttonDesign" href="${personNew}">Creer nouvel utilisateur</a>
         <a class="buttonDesign" href="${group}">Voir les groupes</a>

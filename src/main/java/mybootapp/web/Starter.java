@@ -2,6 +2,8 @@ package mybootapp.web;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
@@ -27,6 +29,9 @@ import org.springframework.web.util.UrlPathHelper;
 import mybootapp.model.Person;
 import mybootapp.repo.GroupRepository;
 import mybootapp.repo.PersonRepository;
+
+import java.io.IOException;
+import java.util.List;
 
 @SpringBootApplication()
 @EnableJpaRepositories(basePackageClasses = {GroupRepository.class, PersonRepository.class, Dao.class})

@@ -8,6 +8,7 @@ import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
+import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
 import mybootapp.model.XUser;
@@ -16,6 +17,8 @@ import mybootapp.repo.XUserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -57,24 +60,34 @@ public class PersonController {
     @SuppressWarnings("deprecation")
     @PostConstruct
     public void init() throws ParseException {
-        Group group1 = new Group("creation");
-
+        /*
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date birthDayThierry = dateFormat.parse("1972-02-05");
         Date birthDayDidier = dateFormat.parse("1978-05-29");
+*/
 
-        Person p1 = new Person("Bourdon", "Thierry",  birthDayThierry, "thierry.bourdon@hotmail.fr", null, "bourdon765");
-        Person p2 = new Person("Deschamps", "Didier", birthDayDidier, "didier.deschamps@hotmail.fr", null, "dudul123");
+        Faker faker = new Faker();
 
-        p1.setOwnGroup(dao.findGroup(1L));
-        p2.setOwnGroup(dao.findGroup(2L));
+        for(int i= 0;i<1000;i++){
 
-        dao.savePerson(p1);
-        dao.savePerson(p2);
+            String fakeFirstName = faker.name().firstName();
+            String fakeLastName = faker.name().lastName();
+            Date fakeBirthDay = faker.date().birthday();
+            String fakeEmail = faker.internet().emailAddress();
+            String fakeWebSite = faker.internet().domainName();
+            String fakePassword = faker.internet().password();
+
+            fakeWebSite = "https://"+fakeWebSite+".com";
+            Person person = new Person(fakeLastName, fakeFirstName, fakeBirthDay, fakeEmail, fakeWebSite, fakePassword);
+
+            person.setOwnGroup(dao.findGroup(1L));
+            dao.savePerson(person);
+        }
+
     }
 
     @RequestMapping(value = " ", method = RequestMethod.GET)
-    public ModelAndView listPersons() {
+    public ModelAndView listPersons(@RequestParam(required = false) Integer page) {
         logger.info("List of persons");
         Collection<Person> persons = dao.findAll(Person.class);
         return new ModelAndView("personsList", "persons", persons);
@@ -191,5 +204,10 @@ public class PersonController {
             result.addAll(result2);
         }
         return new ModelAndView("personsList", "persons", result);
+    }
+
+    public Page<Person> findPersonsWithPagination(int offset, int pageSize){
+        Page<Person> p = repo.findAll(PageRequest.of(offset, pageSize));
+        return p;
     }
 }
