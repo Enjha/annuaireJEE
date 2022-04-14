@@ -6,13 +6,13 @@
 </sec:authorize>
 
 <c:url var="group" value="/group/" />
-<c:url var="person" value="/person/" />
+<c:url var="annuaire" value="/person/" />
 <c:url var="home" value="/" />
 
 <div class="menu">
     <div class="containerOnglet">
         <div class="onglet"><a href="${home}">Accueil</a></div>
-        <div class="onglet"><a href="${person}">Personnes</a></div>
+        <div class="onglet"><a href="${annuaire}">Personnes</a></div>
         <div class="onglet"><a href="${group}">Groupes</a></div>
     </div>
 </div>
