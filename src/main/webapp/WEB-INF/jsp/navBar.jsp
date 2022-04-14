@@ -15,7 +15,7 @@
 <div class="menu">
     <div class="containerOnglet">
         <div class="onglet"><a href="${home}">Accueil</a></div>
-        <div class="onglet"><a href="${annuaire}">Personnes</a></div>
+        <div class="onglet"><a href="${annuaire}">Annuaire</a></div>
         <div class="onglet"><a href="${group}">Groupes</a></div>
     </div>
 </div>

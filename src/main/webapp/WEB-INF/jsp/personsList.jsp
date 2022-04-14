@@ -3,7 +3,7 @@
 <c:url var="group" value="/group/" />
 <c:url var="person" value="/person/" />
 <c:url var="edit" value="/person/edit" />
-<c:url var="edit" value="/person/edit" />
+<c:url var="findPersons" value="/person/find" />
 <c:url var="personNew" value="/person/personNew" />
 <c:url var="show" value="/person/show" />
 
@@ -27,6 +27,9 @@
     </div>
     <div style="text-align: right" ><a style="color:grey" href="${person}">Retirer filtres</a> </div>
     <table class="table table-hover">
+        <sec:authorize access="hasRole('ADMIN')">
+            <td>test</td>
+        </sec:authorize>
         <c:forEach items="${persons}" var="pers">
             <tr>
                 <td><a href="${show}?id=${pers.id}">
@@ -36,6 +39,7 @@
                 <td><i><c:out value="${pers.email}" /></i></td>
                 <td><i type="date" pattern="yyyy-mm-dd" ><c:out value="${pers.birthDay}"/></i></td>
                 <td><i><c:out value="${pers.ownGroup.name}" /></i></td>
+
             </tr>
         </c:forEach>
     </table>
