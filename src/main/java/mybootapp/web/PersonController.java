@@ -72,10 +72,24 @@ public class PersonController {
         return new ModelAndView("personsList", "persons", persons);
     }
 
-    @PreAuthorize("hasRole('ADMIN') " + "|| @securityChecker.isOk(#p.getEmail(), SecurityContextHolder.getContext().getAuthentication().getName()")
+    public boolean isConnectedAs( Person person) {
+        if (SecurityContextHolder.getContext().getAuthentication().getName().equals(person.getEmail()))
+            return true;
+        return false;
+    }
+
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editPerson(@ModelAttribute Person p) {
-        return "personForm";
+        ArrayList<String> result = new ArrayList<>();
+        for (Object o :  SecurityContextHolder.getContext().getAuthentication().getAuthorities()){
+            result.add(o.toString());
+        }
+        System.out.println(result);
+        if( isConnectedAs(p) || result.contains("ADMIN"))
+            return "personForm";
+        else{
+            return "redirect:/";
+        }
     }
 
     @RequestMapping(value = "/personNew", method = RequestMethod.GET)
