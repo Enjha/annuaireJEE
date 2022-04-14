@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import javax.validation.constraints.Null;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,13 +23,17 @@ public class PersonValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "person.firstName");
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "person.lastName");
+        try {
+            String birthDayValidation = birthDayValidation(person.getBirthDay());
+            if (!birthDayValidation.equals("ok")) {
+                errors.rejectValue("birthDay", birthDayValidation);
+            }
+        } catch (NullPointerException e) {
+            errors.rejectValue("birthdDay", "person.birthday.required");
+        }
 
         String firstNameValidation = firstNameValidation(person.getFirstName());
         String lastNameValidation = lastNameValidation(person.getLastName());
-        String birthDayValidation = birthDayValidation(person.getBirthDay());
         String emailValidation = emailValidation(person.getEmail());
         String websiteValidation = webSiteValidation(person.getWebsite());
         String passwordValidation = passwordValidation(person.getPassword());
@@ -48,10 +53,6 @@ public class PersonValidator implements Validator {
         if (!passwordValidation.equals("ok")) {
             errors.rejectValue("password", passwordValidation);
         }
-        if (!birthDayValidation.equals("ok")) {
-            errors.rejectValue("birthDay", birthDayValidation);
-        }
-
     }
 
     String firstNameValidation(String name) {
@@ -61,7 +62,7 @@ public class PersonValidator implements Validator {
         if (name.length() > 20) {
             return "person.firstName.toolong";
         } else if (name.length() <= 0) {
-            return "person.firstName.tooshort";
+            return "person.firstName.required";
         } else if (!mat.matches()) {
             return "person.firstName.invalid";
         } else
@@ -75,7 +76,7 @@ public class PersonValidator implements Validator {
         if (name.length() > 20) {
             return "person.lastName.toolong";
         } else if (name.length() <= 0) {
-            return "person.lastName.tooshort";
+            return "person.lastName.required";
         } else if (!mat.matches()) {
             return "person.lastName.invalid";
         } else
@@ -84,7 +85,8 @@ public class PersonValidator implements Validator {
 
     String birthDayValidation(Date birthDay) {
         Date now = new Date();
-        if(birthDay.after(now))
+        System.out.println(birthDay.toString() + "   " + birthDay);
+        if (birthDay.after(now))
             return "person.birthday.invalid";
         else
             return "ok";
@@ -97,7 +99,7 @@ public class PersonValidator implements Validator {
         if (email.length() > 30) {
             return "person.email.toolong";
         } else if (email.length() <= 0) {
-            return "person.email.tooshort";
+            return "person.email.required";
         } else if (!mat.matches()) {
             return "person.email.invalid";
         } else
@@ -108,7 +110,7 @@ public class PersonValidator implements Validator {
         String email_pattern = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$";
         Pattern pat = Pattern.compile(email_pattern);
         Matcher mat = pat.matcher(webSite);
-        if(webSite.length() == 0)
+        if (webSite.length() == 0)
             return "ok";
         else if (webSite.length() > 200) {
             return "person.website.toolong";
@@ -119,18 +121,13 @@ public class PersonValidator implements Validator {
     }
 
     String passwordValidation(String password) {
-        String email_pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
-        Pattern pat = Pattern.compile(email_pattern);
-        Matcher mat = pat.matcher(password);
 
         if (password.length() <= 0) {
-            return "person.password.null";
+            return "person.password.required";
         } else if (password.length() < 8) {
             return "person.password.tooshort";
         } else if (password.length() > 20) {
             return "person.password.toolong";
-        } else if (!mat.matches()) {
-            return "person.password.invalid";
         } else
             return "ok";
     }

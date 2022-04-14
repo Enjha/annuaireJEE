@@ -1,7 +1,6 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<c:url var="home" value="/" />
 
 <div class="container">
 	<%@ include file="navBar.jsp" %>
@@ -58,7 +57,7 @@
 		</div>
 	</form:form>
 	<div style="text-align: left;">
-		<a class="buttonDesign" href="${home}">Retour a l'accueil</a>
+		<a class="buttonDesign" href="/">Retour a l'accueil</a>
 	</div>
 </div>
 

@@ -16,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -29,6 +30,7 @@ import mybootapp.repo.PersonRepository;
 
 @SpringBootApplication()
 @EnableJpaRepositories(basePackageClasses = {GroupRepository.class, PersonRepository.class, Dao.class})
+@EnableTransactionManagement
 @EntityScan(basePackageClasses = {Person.class, Group.class})
 @Configuration
 public class Starter extends SpringBootServletInitializer implements WebMvcConfigurer {
@@ -71,7 +73,7 @@ public class Starter extends SpringBootServletInitializer implements WebMvcConfi
 	@Bean("messageSource")
 	public MessageSource messageSource() {
 		var r = new ReloadableResourceBundleMessageSource();
-		r.setBasenames("classpath:product", "classpath:messages");
+		r.setBasenames("classpath:person", "classpath:messages");
 		return r;
 	}
 
