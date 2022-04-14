@@ -7,6 +7,9 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.Null;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +32,7 @@ public class PersonValidator implements Validator {
                 errors.rejectValue("birthDay", birthDayValidation);
             }
         } catch (NullPointerException e) {
-            errors.rejectValue("birthdDay", "person.birthday.required");
+            errors.rejectValue("birthDay", "person.birthDay.required");
         }
 
         String firstNameValidation = firstNameValidation(person.getFirstName());
@@ -84,10 +87,9 @@ public class PersonValidator implements Validator {
     }
 
     String birthDayValidation(Date birthDay) {
-        Date now = new Date();
-        System.out.println(birthDay.toString() + "   " + birthDay);
-        if (birthDay.after(now))
-            return "person.birthday.invalid";
+        Date currentDate = new Date();
+        if (birthDay.after(currentDate))
+            return "person.birthDay.invalid";
         else
             return "ok";
     }
