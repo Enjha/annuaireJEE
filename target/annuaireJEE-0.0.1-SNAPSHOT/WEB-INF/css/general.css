@@ -25,3 +25,13 @@ html {
     text-align: center;
     margin: 0 20px;
 }
+
+::-webkit-scrollbar {
+    width: 15px;
+    background: white;
+}
+::-webkit-scrollbar-thumb {
+    border: solid 0 transparent;
+    border-radius: 20px;
+    background-color: #332cf2;
+}
