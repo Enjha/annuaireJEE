@@ -32,19 +32,19 @@ public class PersonValidator implements Validator {
         String websiteValidation = webSiteValidation(person.getWebsite());
         String passwordValidation = passwordValidation(person.getPassword());
 
-        if(!firstNameValidation.equals("ok")){
+        if (!firstNameValidation.equals("ok")) {
             errors.rejectValue("firstName", firstNameValidation);
         }
-        if(!lastNameValidation.equals("ok")){
+        if (!lastNameValidation.equals("ok")) {
             errors.rejectValue("lastName", lastNameValidation);
         }
-        if(!emailValidation.equals("ok")){
+        if (!emailValidation.equals("ok")) {
             errors.rejectValue("email", emailValidation);
         }
-        if(!websiteValidation.equals("ok")){
+        if (!websiteValidation.equals("ok")) {
             errors.rejectValue("email", websiteValidation);
         }
-        if(!passwordValidation.equals("ok")){
+        if (!passwordValidation.equals("ok")) {
             errors.rejectValue("password", passwordValidation);
         }
 
@@ -113,6 +113,8 @@ public class PersonValidator implements Validator {
         Matcher mat = pat.matcher(password);
 
         if (password.length() <= 0) {
+            return "person.password.null";
+        } else if (password.length() < 8) {
             return "person.password.tooshort";
         } else if (password.length() > 20) {
             return "person.password.toolong";
