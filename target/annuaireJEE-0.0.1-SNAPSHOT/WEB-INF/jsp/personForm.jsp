@@ -27,6 +27,11 @@
 			<form:errors path="email" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group">
+			<label for="birthDay">Date de naissance :</label>
+			<form:input type="date" class="form-control" path="birthDay" />
+			<form:errors path="birthDay" cssClass="alert alert-warning" element="div" />
+		</div>
+		<div class="form-group">
 			<label for="website">Website :</label>
 			<form:input class="form-control" path="website" />
 			<form:errors path="website" cssClass="alert alert-warning" element="div" />
@@ -45,11 +50,11 @@
 			<form:errors path="ownGroup" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group" style="text-align: center;">
-			<a class="buttonDesign" window.location = "http://www.example.com/">Soumettre</a>
+			<button type="submit" class="btn btn-info" window.location = "http://www.example.com/">Soumettre</button>
 		</div>
 	</form:form>
 	<div style="text-align: left;">
-		<a class="buttonDesign" href="${person}">Retour a l'annuaire</a>
+		<a class="btn btn-info" href="${person}">Retour a l'annuaire</a>
 	</div>
 </div>
 

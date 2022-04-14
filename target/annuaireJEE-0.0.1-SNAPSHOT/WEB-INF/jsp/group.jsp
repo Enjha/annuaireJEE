@@ -5,7 +5,6 @@
 <c:url var="findGroups" value="/group/find" />
 <c:url var="annuaire" value="/person/" />
 
-<%@ include file="navBar.jsp" %>
 
 <div class="container">
 	<h1>Groupes</h1>
