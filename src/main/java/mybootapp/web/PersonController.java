@@ -13,6 +13,7 @@ import mybootapp.web.security.MyUserPrincipal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -100,6 +101,7 @@ public class PersonController {
 
     @Autowired
     PersonValidator validator;
+
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String saveEditPerson(@ModelAttribute @Valid Person p, BindingResult result) {
