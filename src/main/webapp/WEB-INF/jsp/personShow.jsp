@@ -14,9 +14,9 @@
 	<p>Groupe : <c:out value="${person.ownGroup.name}" /></p>
 
 
-	<p style="text-align: left;">
-		<a class="btn btn-info" href="${annuaire}">Retour a l'annuaire</a>
-	</p>
+	<div style="text-align: left;">
+		<a class="buttonDesign" href="${annuaire}">Retour a l'annuaire</a>
+	</div>
 </div>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

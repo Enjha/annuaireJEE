@@ -21,8 +21,7 @@
         <%@include file="../css/general.css" %>
         <%@include file="../css/footer.css"%>
         <%@include file="../css/navbar.css"%>
-        <%@include file="../css/buttonDesign.css"%>
-        <%@include file="../css/accessAnnuaire.css"%>
+        <%@include file="../css/toolsDesigned.css"%>
     </style>
     <link rel="stylesheet" href="${bootstrap_css}">
     <script src="${jquery_js}"></script>

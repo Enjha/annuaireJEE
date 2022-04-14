@@ -54,11 +54,11 @@
 			<form:errors path="ownGroup" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group" style="text-align: center;">
-			<button type="submit" class="btn btn-info" window.location = "http://www.example.com/">Inscription</button>
+			<a class="buttonDesign" window.location = "http://www.example.com/">Inscription</a>
 		</div>
 	</form:form>
 	<div style="text-align: left;">
-		<a class="btn btn-info" href="${home}">Retour a l'accueil</a>
+		<a class="buttonDesign" href="${home}">Retour a l'accueil</a>
 	</div>
 </div>
 

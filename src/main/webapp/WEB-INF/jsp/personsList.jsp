@@ -19,8 +19,8 @@
             <sec:csrfInput/>
             <p>
                 <span style="margin-left: 30px;"></span>
-                <input name="name" size="10" />
-                <input class="btn btn-info" type="submit" value="Find" />
+                <input class="inputDesign" name="name" size="10" placeholder="ex: Thierry..."/>
+                <input class="buttonDesign" type="submit" value="Find" />
             </p>
 
         </form>
@@ -39,9 +39,9 @@
             </tr>
         </c:forEach>
     </table>
-    <p style="text-align: center;">
-        <a class="btn btn-info" href="${personNew}">Creer nouvel utilisateur</a>
-        <a class="btn btn-info" href="${group}">Voir les groupes</a>
+    <p style="text-align: center; justify-content: center; display: flex; gap: 30px;">
+        <a class="buttonDesign" href="${personNew}">Creer nouvel utilisateur</a>
+        <a class="buttonDesign" href="${group}">Voir les groupes</a>
     </p>
 </div>
 
