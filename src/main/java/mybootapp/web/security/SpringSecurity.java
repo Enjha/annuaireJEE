@@ -57,8 +57,6 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                         "/home", "/login", //
                         "/person/personNew")//
                 .permitAll()//
-                .antMatchers("/simple-user/**")//
-                .hasAnyAuthority("ADMIN") /// ****** NOUVEAU
                 // -- Les autres URL nécessitent une authentification
                 .anyRequest().authenticated()
                 // -- Nous autorisons un formulaire de login

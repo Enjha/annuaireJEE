@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 @Service("securityChecker")
 public class SecurityChecker {
 
-    public boolean isOk(String userName) {
-        return "admin".equals(userName);
+    public boolean isOk(String userName, String user) {
+        return user.equals(userName);
     }
 
 }

@@ -13,6 +13,7 @@ import mybootapp.repo.XUserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -71,6 +72,7 @@ public class PersonController {
         return new ModelAndView("personsList", "persons", persons);
     }
 
+    @PreAuthorize("hasRole('ADMIN') " + "|| @securityChecker.isOk(#p.getEmail(), SecurityContextHolder.getContext().getAuthentication().getName()")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editPerson(@ModelAttribute Person p) {
         return "personForm";

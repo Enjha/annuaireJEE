@@ -33,8 +33,6 @@
                     <c:out value="${pers.firstName}" />
                 </a></td>
                 <td><i><c:out value="${pers.lastName}" /></i></td>
-                <td><i><c:out value="${pers.email}" /></i></td>
-                <td><i type="date" pattern="yyyy-mm-dd" ><c:out value="${pers.birthDay}"/></i></td>
                 <td><i><c:out value="${pers.ownGroup.name}" /></i></td>
                 <sec:authorize access="hasAnyAuthority('ADMIN')">
                     <td><a href="${show}?id=${pers.id}"> voir </a></td>
