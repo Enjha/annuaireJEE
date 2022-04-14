@@ -54,7 +54,7 @@
 			<form:errors path="ownGroup" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group" style="text-align: center;">
-			<a class="buttonDesign" window.location = "http://www.example.com/">Inscription</a>
+			<button type="submit" class="buttonDesign" window.location = "http://www.example.com/">Inscription</button>
 		</div>
 	</form:form>
 	<div style="text-align: left;">

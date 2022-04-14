@@ -108,10 +108,10 @@ public class PersonValidator implements Validator {
         String email_pattern = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$";
         Pattern pat = Pattern.compile(email_pattern);
         Matcher mat = pat.matcher(webSite);
-        if (webSite.length() > 200) {
+        if(webSite.length() == 0)
+            return "ok";
+        else if (webSite.length() > 200) {
             return "person.website.toolong";
-        } else if (webSite.length() <= 0) {
-            return "person.website.tooshort";
         } else if (!mat.matches()) {
             return "person.website.invalid";
         } else
