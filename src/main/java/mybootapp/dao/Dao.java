@@ -42,7 +42,6 @@ public class Dao {
 
     public Person findPerson(long id) {
         if (em.find(Person.class, id) == null) {
-            System.err.println("Entity not found.");
             return null;
         }else
             return em.find(Person.class, id);
@@ -50,7 +49,6 @@ public class Dao {
 
     public Group findGroup(long id) {
         if (em.find(Group.class, id) == null) {
-            System.err.println("Entity not found.");
             return null;
         }else
             return em.find(Group.class, id);
@@ -59,27 +57,22 @@ public class Dao {
     public void savePerson(Person p) {
         if(findGroup(p.getId()) == null){
             em.persist(p);
-            System.err.println("Entity added.");
         }else {
             em.merge(p);
-            System.err.println("Entity updated.");
         }
     }
 
     public void saveGroup(Group g) {
         if(findGroup(g.getId()) == null){
             em.persist(g);
-            System.err.println("Entity added.");
         }else {
             em.merge(g);
-            System.err.println("Entity updated.");
         }
     }
 
     public <T> void remove(Class<T> clazz, Object pk) {
         T entity = em.find(clazz, pk);
         if (entity != null) {
-            System.err.println("Entity removed.");
             em.remove(entity);
         }else{
             System.err.println("Entity doesn't exist.");

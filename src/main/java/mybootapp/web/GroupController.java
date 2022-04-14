@@ -2,6 +2,7 @@ package mybootapp.web;
 
 import javax.annotation.PostConstruct;
 
+import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,10 +41,20 @@ public class GroupController {
 
 	@PostConstruct
 	public void init() {
-		Group group1 = new Group("Groupe 1");
-		Group group2 = new Group("Groupe 2");
-		dao.saveGroup(group1);
-		dao.saveGroup(group2);
+
+		Faker faker = new Faker();
+		ArrayList<String> listName = new ArrayList<>();
+		for(int i=0;i < 100; i++){
+			String fakeName = faker.team().name();
+			if(listName.contains(fakeName)){
+				while(listName.contains(fakeName)){
+					fakeName = faker.team().name();
+				}
+			}
+			Group group = new Group(fakeName);
+			listName.add(fakeName);
+			dao.saveGroup(group);
+		}
 	}
 
 	@RequestMapping(" ")

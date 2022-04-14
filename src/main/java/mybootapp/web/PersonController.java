@@ -8,6 +8,7 @@ import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
+import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
 import mybootapp.model.XUser;
@@ -57,20 +58,25 @@ public class PersonController {
     @SuppressWarnings("deprecation")
     @PostConstruct
     public void init() throws ParseException {
-        Group group1 = new Group("creation");
+        Faker faker = new Faker();
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthDayThierry = dateFormat.parse("1972-02-05");
-        Date birthDayDidier = dateFormat.parse("1978-05-29");
+        for(int i= 0;i<1000;i++){
 
-        Person p1 = new Person("Bourdon", "Thierry",  birthDayThierry, "thierry.bourdon@hotmail.fr", null, "bourdon765");
-        Person p2 = new Person("Deschamps", "Didier", birthDayDidier, "didier.deschamps@hotmail.fr", null, "dudul123");
+            String fakeFirstName = faker.name().firstName();
+            String fakeLastName = faker.name().lastName();
+            Date fakeBirthDay = faker.date().birthday();
+            String fakeEmail = faker.internet().emailAddress();
+            String fakeWebSite = faker.internet().domainName();
+            String fakePassword = faker.internet().password();
 
-        p1.setOwnGroup(dao.findGroup(1L));
-        p2.setOwnGroup(dao.findGroup(2L));
+            fakeWebSite = "https://"+fakeWebSite+".com";
+            Person person = new Person(fakeLastName, fakeFirstName, fakeBirthDay, fakeEmail, fakeWebSite, fakePassword);
 
-        dao.savePerson(p1);
-        dao.savePerson(p2);
+            Random random = new Random();
+            int randomInteger = 1 + random.nextInt(100-1);
+            person.setOwnGroup(dao.findGroup(randomInteger));
+            dao.savePerson(person);
+        }
     }
 
     @RequestMapping(value = " ", method = RequestMethod.GET)

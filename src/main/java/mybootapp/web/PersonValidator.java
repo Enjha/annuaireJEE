@@ -98,7 +98,7 @@ public class PersonValidator implements Validator {
         String email_pattern = "^[a-zA-Z0-9_#$%&’*+/=?^.-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pat = Pattern.compile(email_pattern);
         Matcher mat = pat.matcher(email);
-        if (email.length() > 30) {
+        if (email.length() > 50) {
             return "person.email.toolong";
         } else if (email.length() <= 0) {
             return "person.email.required";
