@@ -62,8 +62,11 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 // -- Nous autorisons un formulaire de login
                 .and().formLogin().permitAll()
                 // -- Nous autorisons un formulaire de logout
-                .and().logout().permitAll();
-
+                .and().logout().permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
     }
 
     @Autowired

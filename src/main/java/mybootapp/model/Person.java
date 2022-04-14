@@ -43,7 +43,6 @@ public class Person implements Serializable {
 	private String firstName;
 
 	@Basic()
-	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	@Column(name = "birth_day", nullable = false)
 	private Date birthDay;
 

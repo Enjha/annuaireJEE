@@ -55,8 +55,8 @@ public class PersonController {
     @PostConstruct
     public void init() {
         Group group1 = new Group("creation");
-        Person p1 = new Person("Bourdon", "Thierry", new Date(1970, Calendar.DECEMBER, 12), "thierry.bourdon@hotmail.fr", null, "bourdon765");
-        Person p2 = new Person("Deschamps", "Didier", new Date(1973, Calendar.APRIL, 28), "didier.deschamps@hotmail.fr", null, "dudul123");
+        Person p1 = new Person("Bourdon", "Thierry",  new Date(1973, Calendar.APRIL, 28), "thierry.bourdon@hotmail.fr", null, "bourdon765");
+        Person p2 = new Person("Deschamps", "Didier", new Date(1920, Calendar.DECEMBER, 12), "didier.deschamps@hotmail.fr", null, "dudul123");
 
         p1.setOwnGroup(dao.findGroup(1L));
         p2.setOwnGroup(dao.findGroup(2L));
