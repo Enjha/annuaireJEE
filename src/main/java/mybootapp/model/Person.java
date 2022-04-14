@@ -57,7 +57,7 @@ public class Person implements Serializable {
 	private String website;
 
 	@Basic(optional = false)
-	@Column(name = "password", length = 15, nullable = false)
+	@Column(name = "password", length = 20, nullable = false)
 	private String password;
 
 	@ManyToOne(optional = true)
