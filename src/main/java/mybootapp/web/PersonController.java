@@ -9,9 +9,11 @@ import mybootapp.model.Group;
 import mybootapp.model.XUser;
 import mybootapp.repo.GroupRepository;
 import mybootapp.repo.XUserRepository;
+import mybootapp.web.security.MyUserPrincipal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -37,6 +39,11 @@ public class PersonController {
 
     @Autowired
     User user;
+
+    @ModelAttribute("user")
+    public User getUser() {
+        return user;
+    }
 
     protected final Log logger = LogFactory.getLog(getClass());
 
@@ -129,7 +136,7 @@ public class PersonController {
             redirAtt.addFlashAttribute("errorPersonId", true);
             return "redirect:/actions/user/home";
         }
-        else if (p.getEmail().equals(user.getName())) {
+        else if (p.getEmail().equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
             return "redirect:edit?personId="+p.getId();
         }
         System.out.println(p.getEmail() + " " + user.getName());

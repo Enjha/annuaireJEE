@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import mybootapp.model.XUser;
+import mybootapp.web.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,15 @@ public class Dao {
             return null;
         }else
             return em.find(Person.class, id);
+    }
+
+    public <T> T find(Class<T> clazz, Object id) {
+        T entity = em.find(clazz, id);
+        if (entity == null)
+            System.err.println("Entity not found.");
+        else
+            System.err.println("Entity found.");
+        return entity;
     }
 
     public Group findGroup(long id) {
@@ -99,8 +109,6 @@ public class Dao {
             System.err.println("Entity doesn't exist.");
         }
     }
-
-
     public boolean isConnectedAs(XUser user, Person person) {
         return user.getUserName().equals(person.getEmail());
     }

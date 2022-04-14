@@ -12,9 +12,10 @@ import java.util.Collections;
 import java.util.Set;
 
 @Entity
-@Data
+@Component
 @NoArgsConstructor
 @AllArgsConstructor
+@SessionScope
 public class XUser {
 
     @Id

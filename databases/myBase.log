@@ -23,13 +23,13 @@ COMMIT
 INSERT INTO PERSON VALUES(4,'3873-04-28 00:00:00.000000','didier.deschamps@hotmail.fr','Didier','Deschamps','dudul123',NULL,2)
 ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 5
 COMMIT
-INSERT INTO XUSER VALUES('thierry.bourdon@hotmail.fr','$2a$10$gAXTKclr6dAnH2MdLNBuQOA2nNotE6IY3y1LvMFvX0aUctSnD6nAW')
+INSERT INTO XUSER VALUES('thierry.bourdon@hotmail.fr','$2a$10$mmAleVze4eeffsPfCthNOOGSqL6dN6I9D3xyTV2wstZVPQCdlTnyO')
 INSERT INTO XUSER_ROLES VALUES('thierry.bourdon@hotmail.fr','USER')
 COMMIT
-INSERT INTO XUSER VALUES('didier.deschamps@hotmail.fr','$2a$10$qscn2wwAHdTBTBMUOM92Lun4z7HonvU2TrzevK1AKMn3P7WaZ/yO2')
+INSERT INTO XUSER VALUES('didier.deschamps@hotmail.fr','$2a$10$sYPxQw3YDBAWx5mkxzGRDu29gdAyuT2Vkw3jSzjcdph/Mss3g1eKe')
 INSERT INTO XUSER_ROLES VALUES('didier.deschamps@hotmail.fr','USER')
 COMMIT
-INSERT INTO XUSER VALUES('admin','$2a$10$F7veB7X2mtkEXGqxFdRQYeYJMi9tBNcZsomLbszCcgvzgCQAVKUDy')
+INSERT INTO XUSER VALUES('admin','$2a$10$w8jxuwu0mGMzWxC.yqfYZe1.wC.DNnHey4/sIr.okZqwwKLaqoKoe')
 INSERT INTO XUSER_ROLES VALUES('admin','ADMIN')
 INSERT INTO XUSER_ROLES VALUES('admin','USER')
 COMMIT

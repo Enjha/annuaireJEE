@@ -1,12 +1,19 @@
 package mybootapp.web;
 
+import mybootapp.dao.Dao;
+import mybootapp.model.Person;
+import mybootapp.model.SimpleUser;
 import mybootapp.model.XUser;
+import mybootapp.repo.XUserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller()
@@ -17,7 +24,7 @@ public class UserController {
 
     @Autowired()
     User user;
-    
+
     @ModelAttribute("user")
     public User newUser() {
         return user;
@@ -31,8 +38,9 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     public String login() {
-        logger.info("login user " + user);
-        return "user";
+        logger.info("going to login page");
+
+        return "login";
     }
 
     @RequestMapping(value = "/logout")
