@@ -47,8 +47,9 @@
 		</div>
 		<div class="form-group">
 			<label for="ownGroup">Groupe :</label>
+			<i style="color:grey; font-size: smaller">(Ne pas modifier afin de garder le groupe de la personne.)</i>
 			<form:select path="ownGroup" multiple="false" class="form-control">
-				<form:option value="" label="--- Modifier le groupe de l'utilisateur ---" />
+				<form:option value=""  label="--- Modifier le groupe de l'utilisateur ---" />
 				<form:options items="${personGroup}" />
 			</form:select>
 			<form:errors path="ownGroup" cssClass="alert alert-warning" element="div" />

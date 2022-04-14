@@ -12,6 +12,4 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 	List<Person> findByEmailLike(String name);
 	List<Person> findByFirstNameLike(String name);
 	List<Person> findByLastNameLike(String name);
-	List<Person> findAll();
-	Optional<Person> findById(Long id);
 }

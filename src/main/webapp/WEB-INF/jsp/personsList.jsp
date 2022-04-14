@@ -27,9 +27,6 @@
     </div>
     <div style="text-align: right" ><a style="color:grey" href="${person}">Retirer filtres</a> </div>
     <table class="table table-hover">
-        <sec:authorize access="hasRole('ADMIN')">
-            <td>test</td>
-        </sec:authorize>
         <c:forEach items="${persons}" var="pers">
             <tr>
                 <td><a href="${show}?id=${pers.id}">
@@ -39,7 +36,10 @@
                 <td><i><c:out value="${pers.email}" /></i></td>
                 <td><i type="date" pattern="yyyy-mm-dd" ><c:out value="${pers.birthDay}"/></i></td>
                 <td><i><c:out value="${pers.ownGroup.name}" /></i></td>
-
+                <sec:authorize access="hasAnyAuthority('ADMIN')">
+                    <td><a href="${show}?id=${pers.id}"> voir </a></td>
+                    <td><a href="${edit}?id=${pers.id}"> modifier </a></td>
+                </sec:authorize>
             </tr>
         </c:forEach>
     </table>
