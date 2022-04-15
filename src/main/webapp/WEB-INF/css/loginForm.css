@@ -1,0 +1,57 @@
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.login-panel{
+    background-color: #f8f9ff;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.43);
+    width: 70%;
+    margin: auto;
+}
+
+.title-panel{
+    text-align: center;
+}
+.title-panel h1{
+    font-size: 80px;
+}
+
+.fields-panel{
+    width: 45%;
+    display: block;
+    justify-content: center;
+    margin: auto;
+}
+
+.field{
+    margin: 10px;
+}
+
+.fieldDesign{
+    border-radius: 30px;
+    padding: 10px 10px 10px 30px;
+    border-color: #332cf2;
+}
+.fieldDesign:hover{
+    border-color: #7b76ff;
+}
+.fieldDesign:focus{
+    border-color: #2cdbf2;
+}
+
+.button-panel{
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+}
+
+.forget-password{
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+}

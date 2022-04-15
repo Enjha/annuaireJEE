@@ -1,16 +1,11 @@
 package mybootapp.web.security;
 
-import java.nio.file.LinkOption;
-import java.util.Collection;
-import java.util.Set;
-
-import javax.annotation.PostConstruct;
-
 import mybootapp.model.Person;
+import mybootapp.model.XUser;
 import mybootapp.repo.PersonRepository;
+import mybootapp.repo.XUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -20,11 +15,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
-import mybootapp.model.XUser;
-import mybootapp.repo.XUserRepository;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import javax.annotation.PostConstruct;
+import java.util.Collection;
+import java.util.Set;
 
 @Component
 @EnableWebSecurity
@@ -59,19 +55,18 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/webjars/**", //
                         "/home", "/login", //
                         "/person/personNew",
-                        "/person/forgotPassword")//
+                        "/person/forgotPassword","/logout")//
                 .permitAll()//
                 // -- Les autres URL nécessitent une authentification
                 .anyRequest().authenticated()
                 // -- Nous autorisons un formulaire de login
-                .and().formLogin().loginPage("/login").permitAll()
-                .and().rememberMe()
+                .and().formLogin().permitAll().loginPage("/login")
                 // -- Nous autorisons un formulaire de logout
-                .and().logout().permitAll()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/");
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true);
     }
+
 
     @Autowired
     UserDetailsService myUserDetailsService;
@@ -92,5 +87,4 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

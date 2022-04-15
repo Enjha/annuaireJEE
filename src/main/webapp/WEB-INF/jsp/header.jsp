@@ -22,6 +22,7 @@
         <%@include file="../css/footer.css"%>
         <%@include file="../css/navbar.css"%>
         <%@include file="../css/toolsDesigned.css"%>
+        <%@include file="../css/loginForm.css"%>
     </style>
     <link rel="stylesheet" href="${bootstrap_css}">
     <script src="${jquery_js}"></script>

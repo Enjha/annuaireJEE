@@ -56,11 +56,10 @@ public class PersonController {
         return dao.findAll(Person.class);
     }
 
-    @SuppressWarnings("deprecation")
     @PostConstruct
     public void init() {
         Faker faker = new Faker();
-        for(int i= 0;i<1000;i++){
+        for(int i= 0;i<10;i++){
             String fakeFirstName = faker.name().firstName();
             String fakeLastName = faker.name().lastName();
             Date fakeBirthDay = faker.date().birthday();
@@ -86,9 +85,7 @@ public class PersonController {
     }
 
     public boolean isConnectedAs( Person person) {
-        if (SecurityContextHolder.getContext().getAuthentication().getName().equals(person.getEmail()))
-            return true;
-        return false;
+        return SecurityContextHolder.getContext().getAuthentication().getName().equals(person.getEmail());
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -114,8 +111,7 @@ public class PersonController {
     {
         if (id != null) {
             logger.info("find person " + id);
-            var p = dao.findPerson(id);
-            return p;
+            return dao.findPerson(id);
         }
         Person p = new Person();
         p.setLastName("");

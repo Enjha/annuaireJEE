@@ -21,6 +21,8 @@ public class TestWebApp {
     @Autowired
     private MockMvc mvc;
 
+
+
     @Test
     public void testCourseList() throws Exception {
         mvc.perform(get("/course/list"))//
