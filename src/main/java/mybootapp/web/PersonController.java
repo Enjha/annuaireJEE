@@ -1,12 +1,15 @@
 package mybootapp.web;
 
+import java.util.*;
+
+import javax.annotation.PostConstruct;
+import javax.validation.Valid;
+
 import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
-import mybootapp.model.Person;
 import mybootapp.model.XUser;
 import mybootapp.repo.GroupRepository;
-import mybootapp.repo.PersonRepository;
 import mybootapp.repo.XUserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,19 +20,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.annotation.PostConstruct;
-import javax.validation.Valid;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import mybootapp.model.Person;
+import mybootapp.repo.PersonRepository;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @ContextConfiguration(classes = Starter.class)
@@ -63,9 +59,8 @@ public class PersonController {
     @SuppressWarnings("deprecation")
     @PostConstruct
     public void init() {
-        Person bat = new Person("Rucin", "Baptiste", new Date(98, Calendar.JULY, 16), "baptiste.rucin@gmail.com", "http://pasdesite.fr", "test");
         Faker faker = new Faker();
-        for(int i= 0;i<10;i++){
+        for(int i= 0;i<1000;i++){
             String fakeFirstName = faker.name().firstName();
             String fakeLastName = faker.name().lastName();
             Date fakeBirthDay = faker.date().birthday();
@@ -81,8 +76,6 @@ public class PersonController {
             person.setOwnGroup(dao.findGroup(randomInteger));
             dao.savePerson(person);
         }
-        bat.setOwnGroup(dao.findGroup(2));
-        dao.savePerson(bat);
     }
 
     @RequestMapping(value = " ", method = RequestMethod.GET)
@@ -93,7 +86,9 @@ public class PersonController {
     }
 
     public boolean isConnectedAs( Person person) {
-        return SecurityContextHolder.getContext().getAuthentication().getName().equals(person.getEmail());
+        if (SecurityContextHolder.getContext().getAuthentication().getName().equals(person.getEmail()))
+            return true;
+        return false;
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -119,7 +114,8 @@ public class PersonController {
     {
         if (id != null) {
             logger.info("find person " + id);
-            return dao.findPerson(id);
+            var p = dao.findPerson(id);
+            return p;
         }
         Person p = new Person();
         p.setLastName("");
@@ -131,7 +127,6 @@ public class PersonController {
         logger.info("new person = " + p);
         return p ;
     }
-
     private BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -155,10 +150,8 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/personNew", method = RequestMethod.POST)
-    public String saveNewPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ParseException {
+    public String saveNewPerson(@ModelAttribute @Valid Person p, BindingResult result) {
         validator.validate(p, result);
-        System.out.println(p.getBirthDay());
-
         if (result.hasErrors()) {
             return "personNewForm";
         }
@@ -205,29 +198,30 @@ public class PersonController {
         return new ModelAndView("personsList", "persons", result);
     }
 
-    @RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
     public String editPassword() {
-        return "newPassword";
+        return "forgotPassword";
     }
 
-    @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-    public String saveEditPassword(@ModelAttribute Person p, BindingResult result) {
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+    public String saveEditPassword(@ModelAttribute Person p) {
         var encoder = passwordEncoder();
         Person person = repo.findByEmail(p.getEmail());
+        System.out.println(person.getEmail());
         if(person == null) {
             System.out.println("Email n'existe pas");
             return "redirect:/";
         }
         person.setPassword(p.getPassword());
         person.setEmail(p.getEmail());
-        System.out.println(p.getPassword());
-        System.out.println(person.getPassword());
         var user = userRepo.findByUserNameLike(p.getEmail());
         user.setUserName(p.getEmail());
         user.setPassword(p.getPassword());
+        user.setRoles(user.getRoles());
+        System.out.println(user.getUserName() +" "+ user.getPassword());
+        System.out.println(person.getEmail() + " " + person.getPassword());
         userRepo.save(user);
-        System.out.println(user.getPassword());
-        dao.savePerson(person);
+        repo.save(person);
         return "redirect:/";
     }
 }
