@@ -1,15 +1,12 @@
 package mybootapp.web;
 
-import java.util.*;
-
-import javax.annotation.PostConstruct;
-import javax.validation.Valid;
-
 import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
+import mybootapp.model.Person;
 import mybootapp.model.XUser;
 import mybootapp.repo.GroupRepository;
+import mybootapp.repo.PersonRepository;
 import mybootapp.repo.XUserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,12 +17,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import mybootapp.model.Person;
-import mybootapp.repo.PersonRepository;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.annotation.PostConstruct;
+import javax.validation.Valid;
+import java.time.DayOfWeek;
+import java.util.*;
 
 @Controller
 @ContextConfiguration(classes = Starter.class)
@@ -43,10 +45,6 @@ public class PersonController {
 
     @Autowired
     Dao dao;
-
-
-    @Autowired
-    MailService mailService;
 
     protected final Log logger = LogFactory.getLog(getClass());
 
@@ -203,12 +201,22 @@ public class PersonController {
     public String saveEditPassword(@ModelAttribute Person p) {
         var encoder = passwordEncoder();
         Person person = repo.findPersonByEmailLike(p.getEmail());
+        int DateADay = p.getBirthDay().getDay();
+        int DateAMonth = p.getBirthDay().getMonth();
+        int DateAYear = p.getBirthDay().getYear();
+        int DateBDay = person.getBirthDay().getDay();
+        int DateBMonth = person.getBirthDay().getMonth();
+        int DateBYear = person.getBirthDay().getYear();
         if(person == null) {
             System.out.println("Email n'existe pas");
+            return "redirect:/";
+        }if((DateADay != DateBDay) && (DateAMonth != DateBMonth) && (DateAYear != DateBYear)){
+            System.out.println("Date de naissance incorrecte");
             return "redirect:/";
         }
         person.setPassword(p.getPassword());
         person.setEmail(p.getEmail());
+        person.setBirthDay(p.getBirthDay());
         var user = userRepo.findByUserNameLike(p.getEmail());
         user.setPassword(encoder.encode(p.getPassword()));
         userRepo.save(user);

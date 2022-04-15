@@ -11,9 +11,6 @@ public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Transient
-	public static long updateCounter = 0;
-
 	/**
 	 * Attributes
 	 */
@@ -50,21 +47,6 @@ public class Person implements Serializable {
 	@JoinColumn(name = "ownGroup")
 	private Group ownGroup;
 
-	@Column(name = "reset_password_token")
-	private String resetPasswordToken;
-
-	public String getResetPasswordToken() {
-		return resetPasswordToken;
-	}
-
-	public void setResetPasswordToken(String resetPasswordToken) {
-		this.resetPasswordToken = resetPasswordToken;
-	}
-
-	/**
-	 * Constructors
-	 */
-
 	public Person() {
 		super();
 	}
@@ -87,9 +69,6 @@ public class Person implements Serializable {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getLastName() {
 		return lastName;
@@ -156,7 +135,6 @@ public class Person implements Serializable {
 	@PostUpdate
 	public void afterUpdate() {
 		System.err.println("PostUpdate of " + this);
-		updateCounter++;
 	}
 
 	/**

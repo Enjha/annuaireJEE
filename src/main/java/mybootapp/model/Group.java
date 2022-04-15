@@ -56,17 +56,6 @@ public class Group implements Serializable{
 		this.name = name;
 	}
 
-	public Set<Person> getPersons() {
-		return persons;
-	}
-
-	public void setPersons(Set<Person> persons) {
-		if (this.persons == null) {
-			this.persons = new HashSet<>();
-		}
-		this.persons.addAll(persons);
-	}
-
 	public void setPerson(Person person) {
 		if (this.persons == null) {
 			this.persons = new HashSet<>();

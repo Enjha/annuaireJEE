@@ -1,15 +1,10 @@
 package mybootapp.repo;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import mybootapp.model.Person;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import mybootapp.model.Group;
-import mybootapp.model.Person;
+import java.util.List;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 	List<Person> findByEmailLike(String name);

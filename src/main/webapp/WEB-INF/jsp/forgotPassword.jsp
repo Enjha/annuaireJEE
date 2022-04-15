@@ -20,6 +20,11 @@
 			<form:errors path="email" cssClass="alert alert-warning" element="div" />
 		</div>
 		<div class="form-group">
+			<label for="birthDay">Date de naissance :</label>
+			<form:input type="date" class="form-control" path="birthDay" />
+			<form:errors path="birthDay" cssClass="alert alert-warning" element="div" />
+		</div>
+		<div class="form-group">
 			<label for="password">Mot de passe :</label>
 			<form:input type="password" class="form-control" path="password" />
 			<form:errors path="password" cssClass="alert alert-warning" element="div" />

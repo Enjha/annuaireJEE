@@ -1,6 +1,10 @@
 package mybootapp.dao;
 
-import java.util.Collection;
+import mybootapp.model.Group;
+import mybootapp.model.Person;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,15 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-
-import mybootapp.model.XUser;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import mybootapp.model.Group;
-import mybootapp.model.Person;
+import java.util.Collection;
 
 @Service
 @Repository("Dao")
@@ -40,11 +36,6 @@ public class Dao {
         return tq.getResultList();
     }
 
-    public <T> T update(T entity) {
-        entity = em.merge(entity);
-        System.err.println("Entity updated.");
-        return entity;
-    }
 
     public Person findPerson(long id) {
         if (em.find(Person.class, id) == null) {

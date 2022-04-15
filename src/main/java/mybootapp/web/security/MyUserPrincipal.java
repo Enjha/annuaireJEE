@@ -1,14 +1,12 @@
 package mybootapp.web.security;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
-
+import mybootapp.model.XUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import mybootapp.model.XUser;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class MyUserPrincipal implements UserDetails {
 
