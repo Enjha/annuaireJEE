@@ -56,9 +56,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/webjars/**", //
                         "/home", "/login", //
                         "/person/personNew",
-                        "/person/forgotPassword",
-                        "/person/resetPassword",
-                        "/person/newPassword")//
+                        "/person/forgotPassword")//
                 .permitAll()//
                 // -- Les autres URL nécessitent une authentification
                 .anyRequest().authenticated()

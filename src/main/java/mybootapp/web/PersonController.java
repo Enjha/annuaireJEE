@@ -1,8 +1,5 @@
 package mybootapp.web;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +15,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -63,7 +59,6 @@ public class PersonController {
     @SuppressWarnings("deprecation")
     @PostConstruct
     public void init() {
-        Person bat = new Person("Rucin", "Baptiste", new Date(98, Calendar.JULY, 16), "baptiste.rucin@gmail.com", "http://pasdesite.fr", "test");
         Faker faker = new Faker();
         for(int i= 0;i<1000;i++){
             String fakeFirstName = faker.name().firstName();
@@ -81,7 +76,6 @@ public class PersonController {
             person.setOwnGroup(dao.findGroup(randomInteger));
             dao.savePerson(person);
         }
-        dao.savePerson(bat);
     }
 
     @RequestMapping(value = " ", method = RequestMethod.GET)
@@ -204,29 +198,30 @@ public class PersonController {
         return new ModelAndView("personsList", "persons", result);
     }
 
-    @RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
     public String editPassword() {
-        return "newPassword";
+        return "forgotPassword";
     }
 
-    @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-    public String saveEditPassword(@ModelAttribute Person p, BindingResult result) {
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+    public String saveEditPassword(@ModelAttribute Person p) {
         var encoder = passwordEncoder();
         Person person = repo.findByEmail(p.getEmail());
+        System.out.println(person.getEmail());
         if(person == null) {
             System.out.println("Email n'existe pas");
             return "redirect:/";
         }
         person.setPassword(p.getPassword());
         person.setEmail(p.getEmail());
-        System.out.println(p.getPassword());
-        System.out.println(person.getPassword());
         var user = userRepo.findByUserNameLike(p.getEmail());
         user.setUserName(p.getEmail());
         user.setPassword(p.getPassword());
+        user.setRoles(user.getRoles());
+        System.out.println(user.getUserName() +" "+ user.getPassword());
+        System.out.println(person.getEmail() + " " + person.getPassword());
         userRepo.save(user);
-        System.out.println(user.getPassword());
-        dao.savePerson(person);
+        repo.save(person);
         return "redirect:/";
     }
 }
