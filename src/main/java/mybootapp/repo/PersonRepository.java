@@ -13,7 +13,7 @@ import mybootapp.model.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 	List<Person> findByEmailLike(String name);
-	Person findByEmail(String name);
+	Person findPersonByEmailLike(String name);
 	List<Person> findByFirstNameLike(String name);
 	List<Person> findByLastNameLike(String name);
 	List<Person> findAll(Sort sort);

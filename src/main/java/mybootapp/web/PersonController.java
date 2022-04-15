@@ -206,8 +206,7 @@ public class PersonController {
     @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
     public String saveEditPassword(@ModelAttribute Person p) {
         var encoder = passwordEncoder();
-        Person person = repo.findByEmail(p.getEmail());
-        System.out.println(person.getEmail());
+        Person person = repo.findPersonByEmailLike(p.getEmail());
         if(person == null) {
             System.out.println("Email n'existe pas");
             return "redirect:/";
@@ -215,13 +214,9 @@ public class PersonController {
         person.setPassword(p.getPassword());
         person.setEmail(p.getEmail());
         var user = userRepo.findByUserNameLike(p.getEmail());
-        user.setUserName(p.getEmail());
-        user.setPassword(p.getPassword());
-        user.setRoles(user.getRoles());
-        System.out.println(user.getUserName() +" "+ user.getPassword());
-        System.out.println(person.getEmail() + " " + person.getPassword());
+        user.setPassword(encoder.encode(p.getPassword()));
         userRepo.save(user);
-        repo.save(person);
-        return "redirect:/";
+        dao.savePerson(person);
+        return "/passwordChanged";
     }
 }
