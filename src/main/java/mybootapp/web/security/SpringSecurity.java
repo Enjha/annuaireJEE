@@ -1,5 +1,6 @@
 package mybootapp.web.security;
 
+import java.nio.file.LinkOption;
 import java.util.Collection;
 import java.util.Set;
 
@@ -63,12 +64,12 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 // -- Les autres URL nécessitent une authentification
                 .anyRequest().authenticated()
                 // -- Nous autorisons un formulaire de login
-                .and().formLogin().permitAll()
+                .and().formLogin().loginPage("/login").permitAll()
+                .and().rememberMe()
                 // -- Nous autorisons un formulaire de logout
                 .and().logout().permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
     }
 
