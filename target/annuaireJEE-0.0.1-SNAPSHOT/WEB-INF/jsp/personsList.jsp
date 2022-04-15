@@ -10,20 +10,15 @@
 
 <%@ include file="navBar.jsp" %>
 <div class="container">
-    <%@ include file="navBar.jsp" %>
 
     <div class="container-title">
         <h1 class="main-title">Annuaire</h1>
+
     </div>
-    <h1> Oubli de mot de passe </h1>
-    <form action="#">
-        <table>
-            <tr>
-                <td colspan="2"><a href="${forgotPassword}">Forgot Password</a></td>
-            </tr>
-        </table>
-    </form>
-    </body>
+    <div style ="position: fixed; right:10px;">
+        <a class="buttonDesign" href="${personNew}">Creer nouvel utilisateur</a>
+    </div>
+
     <div style="text-align: center;">
         <form action="${findPersons}" method="post" >
             <sec:csrfInput/>

@@ -2,9 +2,9 @@
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="person" value="/person/" />
-
+<%@ include file="navBar.jsp" %>
 <div class="container">
-	<%@ include file="navBar.jsp" %>
+
 
 	<div class="container-title">
 		<h1 class="main-title">Modification</h1>

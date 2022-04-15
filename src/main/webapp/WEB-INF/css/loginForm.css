@@ -1,7 +1,9 @@
-.container{
+.containerPannel{
     position: absolute;
+    margin-top:100px;
     top: 50%;
     left: 50%;
+    width: 1000px;
     transform: translate(-50%,-50%);
 }
 

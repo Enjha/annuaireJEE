@@ -1,10 +1,11 @@
 <%@ include file="header.jsp" %>
 <c:url var="list" value="/person"/>
 <c:url var="/person/resetPassword" value="/forgotPassword"/>
+<%@ include file="navBar.jsp" %>
 <body>
 <div class="main">
 
-    <%@ include file="navBar.jsp" %>
+
 
     <div class="container-title">
         <h1 class="main-title"><c:out value="${message}"/></h1>

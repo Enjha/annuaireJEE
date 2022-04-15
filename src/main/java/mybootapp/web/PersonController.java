@@ -26,7 +26,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
-import java.time.DayOfWeek;
 import java.util.*;
 
 @Controller
@@ -51,13 +50,13 @@ public class PersonController {
     @ModelAttribute("persons")
     Collection<Person> persons() {
         logger.info("Making list of persons");
-        return dao.findAll(Person.class);
+        return repo.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
     }
 
     @PostConstruct
     public void init() {
         Faker faker = new Faker();
-        for(int i= 0;i<10;i++){
+        for(int i= 0;i<1000;i++){
             String fakeFirstName = faker.name().firstName();
             String fakeLastName = faker.name().lastName();
             Date fakeBirthDay = faker.date().birthday();

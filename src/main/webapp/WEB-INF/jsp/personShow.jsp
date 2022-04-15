@@ -1,8 +1,9 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <c:url var="annuaire" value="/person/" />
+<%@ include file="navBar.jsp" %>
 
 <div class="container">
-	<%@ include file="navBar.jsp" %>
+
 
 	<div class="container-title">
 		<h1 class="main-title"><c:out value="${person.lastName}"/> <c:out value="${person.firstName}"/></h1>
