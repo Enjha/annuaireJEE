@@ -1,24 +1,17 @@
 package mybootapp.web;
 
-import javax.annotation.PostConstruct;
-
 import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
+import mybootapp.model.Group;
+import mybootapp.repo.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import mybootapp.model.Group;
-import mybootapp.repo.GroupRepository;
-
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -81,7 +74,6 @@ public class GroupController {
 	public Map<Long, String> searchGroups() {
 		Map<Long, String> groupResult = new LinkedHashMap<>();
 		ArrayList<Group> groups = new ArrayList<>(groupRepo.findAll());
-		int i = 0;
 		for(Group group : groups){
 			groupResult.put(group.getId(), group.getName());
 		}
