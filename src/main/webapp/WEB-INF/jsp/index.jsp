@@ -1,5 +1,6 @@
 <%@ include file="header.jsp" %>
 <c:url var="list" value="/person"/>
+<c:url var="/person/resetPassword" value="/forgotPassword"/>
 <body>
 <div class="main">
 
@@ -45,7 +46,7 @@
         </p>
     </div>
 </div>
-</body>
+
 <footer>
     <%@ include file="footer.jsp" %>
 </footer>

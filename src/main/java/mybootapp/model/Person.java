@@ -31,6 +31,7 @@ public class Person implements Serializable {
 	private String firstName;
 
 	@Basic()
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "birth_day", nullable = false)
 	private Date birthDay;
 
@@ -48,6 +49,17 @@ public class Person implements Serializable {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "ownGroup")
 	private Group ownGroup;
+
+	@Column(name = "reset_password_token")
+	private String resetPasswordToken;
+
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
+
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
+	}
 
 	/**
 	 * Constructors
@@ -139,6 +151,7 @@ public class Person implements Serializable {
 	public void beforeUpdate() {
 		System.err.println("PreUpdate of " + this);
 	}
+
 
 	@PostUpdate
 	public void afterUpdate() {
