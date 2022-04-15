@@ -40,6 +40,12 @@ public class Dao {
         return tq.getResultList();
     }
 
+    public <T> T update(T entity) {
+        entity = em.merge(entity);
+        System.err.println("Entity updated.");
+        return entity;
+    }
+
     public Person findPerson(long id) {
         if (em.find(Person.class, id) == null) {
             return null;

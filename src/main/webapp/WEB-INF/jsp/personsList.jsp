@@ -15,7 +15,7 @@
     <div class="container-title">
         <h1 class="main-title">Annuaire</h1>
     </div>
-    <h1> CECI EST UN TEST </h1>
+    <h1> Oubli de mot de passe </h1>
     <form action="#">
         <table>
             <tr>
