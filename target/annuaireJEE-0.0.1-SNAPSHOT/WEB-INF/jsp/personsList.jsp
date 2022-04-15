@@ -5,7 +5,7 @@
 <c:url var="edit" value="/person/edit" />
 <c:url var="findPersons" value="/person/find" />
 <c:url var="personNew" value="/person/personNew" />
-<c:url var="newPassword" value="/person/newPassword" />
+<c:url var="forgetPassword" value="/person/forgetPassword" />
 <c:url var="show" value="/person/show" />
 
 <%@ include file="navBar.jsp" %>
@@ -19,7 +19,7 @@
     <form action="#">
         <table>
             <tr>
-                <td colspan="2"><a href="${newPassword}">Forgot Password</a></td>
+                <td colspan="2"><a href="${forgetPassword}">Forgot Password</a></td>
             </tr>
         </table>
     </form>

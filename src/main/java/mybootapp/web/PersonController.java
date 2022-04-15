@@ -66,7 +66,6 @@ public class PersonController {
         Person bat = new Person("Rucin", "Baptiste", new Date(98, Calendar.JULY, 16), "baptiste.rucin@gmail.com", "http://pasdesite.fr", "test");
         Faker faker = new Faker();
         for(int i= 0;i<1000;i++){
-
             String fakeFirstName = faker.name().firstName();
             String fakeLastName = faker.name().lastName();
             Date fakeBirthDay = faker.date().birthday();
@@ -78,10 +77,11 @@ public class PersonController {
             Person person = new Person(fakeLastName, fakeFirstName, fakeBirthDay, fakeEmail, fakeWebSite, fakePassword);
 
             Random random = new Random();
-            int randomInteger = 1 + random.nextInt(100-1);
+            int randomInteger = 1 + random.nextInt(100);
             person.setOwnGroup(dao.findGroup(randomInteger));
             dao.savePerson(person);
         }
+        dao.savePerson(bat);
     }
 
     @RequestMapping(value = " ", method = RequestMethod.GET)
