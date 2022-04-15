@@ -27,7 +27,6 @@ public class TestDao {
     static Group group1, group2, group3;
     static Person thierry, didier, valentine;
 
-    @SuppressWarnings("deprecation")
 
     @BeforeAll
     public static void init() {
@@ -36,9 +35,9 @@ public class TestDao {
         group2 = new Group("Groupe 2");
         group3 = new Group("Groupe 3");
 
-        valentine = new Person("Tirroir", "Valentine", new Date(1980, Calendar.MARCH, 25), "valentine.tirroir@etu.univ-amu.fr", "https://www.sitewebvalentine.com", "valentine123");
-        didier = new Person("Deschamps", "Didier", new Date(1973, Calendar.APRIL, 28), "didier.deschamps@hotmail.fr", null, "dudul123");
-        thierry = new Person("Bourdon", "Thierry", new Date(1970, Calendar.DECEMBER, 12), "thierry.bourdon@hotmail.fr", null, "bourdon765");
+        valentine = new Person("Tirroir", "Valentine", new Date(90, Calendar.MARCH, 25), "valentine.tirroir@etu.univ-amu.fr", "https://www.sitewebvalentine.com", "valentine123");
+        didier = new Person("Deschamps", "Didier", new Date(73, Calendar.APRIL, 28), "didier.deschamps@hotmail.fr", null, "dudul123");
+        thierry = new Person("Bourdon", "Thierry", new Date(70, Calendar.DECEMBER, 12), "thierry.bourdon@hotmail.fr", null, "bourdon765");
 
     }
 

@@ -1,35 +1,35 @@
 package mybootapp.web;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import javax.annotation.PostConstruct;
-import javax.validation.Valid;
-
 import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
+import mybootapp.model.Person;
 import mybootapp.model.XUser;
 import mybootapp.repo.GroupRepository;
+import mybootapp.repo.PersonRepository;
 import mybootapp.repo.XUserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import mybootapp.model.Person;
-import mybootapp.repo.PersonRepository;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.annotation.PostConstruct;
+import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @ContextConfiguration(classes = Starter.class)
@@ -65,7 +65,7 @@ public class PersonController {
     public void init() {
         Person bat = new Person("Rucin", "Baptiste", new Date(98, Calendar.JULY, 16), "baptiste.rucin@gmail.com", "http://pasdesite.fr", "test");
         Faker faker = new Faker();
-        for(int i= 0;i<1000;i++){
+        for(int i= 0;i<10;i++){
             String fakeFirstName = faker.name().firstName();
             String fakeLastName = faker.name().lastName();
             Date fakeBirthDay = faker.date().birthday();
@@ -81,6 +81,7 @@ public class PersonController {
             person.setOwnGroup(dao.findGroup(randomInteger));
             dao.savePerson(person);
         }
+        bat.setOwnGroup(dao.findGroup(2));
         dao.savePerson(bat);
     }
 
@@ -92,9 +93,7 @@ public class PersonController {
     }
 
     public boolean isConnectedAs( Person person) {
-        if (SecurityContextHolder.getContext().getAuthentication().getName().equals(person.getEmail()))
-            return true;
-        return false;
+        return SecurityContextHolder.getContext().getAuthentication().getName().equals(person.getEmail());
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -120,8 +119,7 @@ public class PersonController {
     {
         if (id != null) {
             logger.info("find person " + id);
-            var p = dao.findPerson(id);
-            return p;
+            return dao.findPerson(id);
         }
         Person p = new Person();
         p.setLastName("");
@@ -133,6 +131,7 @@ public class PersonController {
         logger.info("new person = " + p);
         return p ;
     }
+
     private BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -156,8 +155,10 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/personNew", method = RequestMethod.POST)
-    public String saveNewPerson(@ModelAttribute @Valid Person p, BindingResult result) {
+    public String saveNewPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ParseException {
         validator.validate(p, result);
+        System.out.println(p.getBirthDay());
+
         if (result.hasErrors()) {
             return "personNewForm";
         }
