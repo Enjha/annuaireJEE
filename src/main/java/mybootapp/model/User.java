@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @SessionScope
-public class XUser {
+public class User {
 
     @Id
     String userName;

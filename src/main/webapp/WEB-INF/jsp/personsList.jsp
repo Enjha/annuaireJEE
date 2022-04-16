@@ -40,6 +40,7 @@
                 </a></td>
                 <td><i><c:out value="${pers.firstName}" /></i></td>
                 <td><i><c:out value="${pers.email}" /></i></td>
+                <td><i><c:out value="${pers.ownGroup.name}" /></i></td>
                 <sec:authorize access="hasAnyAuthority('ADMIN')">
                     <td><a href="${show}?id=${pers.id}"> voir </a></td>
                     <td><a href="${edit}?id=${pers.id}"> modifier </a></td>

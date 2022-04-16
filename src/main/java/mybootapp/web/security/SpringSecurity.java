@@ -1,9 +1,9 @@
 package mybootapp.web.security;
 
 import mybootapp.model.Person;
-import mybootapp.model.XUser;
+import mybootapp.model.User;
 import mybootapp.repo.PersonRepository;
-import mybootapp.repo.XUserRepository;
+import mybootapp.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -28,7 +28,7 @@ import java.util.Set;
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    XUserRepository userRepo;
+    UserRepository userRepo;
 
     @Autowired
     PersonRepository personRepo;
@@ -38,10 +38,10 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
         var encoder = passwordEncoder();
         Collection<Person> persons = personRepo.findAll();
         for(Person p : persons){
-            var user = new XUser(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
+            var user = new User(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
             userRepo.save(user);
         }
-        var admin = new XUser("admin", encoder.encode("admin"), Set.of("ADMIN","USER"));
+        var admin = new User("admin", encoder.encode("admin"), Set.of("ADMIN","USER"));
         userRepo.save(admin);
         System.out.println("--- INIT SPRING SECURITY");
     }

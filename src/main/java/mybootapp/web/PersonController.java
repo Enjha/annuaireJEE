@@ -4,10 +4,10 @@ import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
-import mybootapp.model.XUser;
+import mybootapp.model.User;
 import mybootapp.repo.GroupRepository;
 import mybootapp.repo.PersonRepository;
-import mybootapp.repo.XUserRepository;
+import mybootapp.repo.UserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class PersonController {
     GroupRepository GroupRepo;
 
     @Autowired
-    XUserRepository userRepo;
+    UserRepository userRepo;
 
     @Autowired
     Dao dao;
@@ -55,6 +55,12 @@ public class PersonController {
 
     @PostConstruct
     public void init() {
+        Date date = new Date(95, Calendar.JUNE, 20);
+        Person p = new Person("test", "test", date, "test@gmail.com","" , "testPourTest");
+        Random r = new Random();
+        int rInteger = 1 + r.nextInt(100);
+        p.setOwnGroup(dao.findGroup(rInteger));
+        dao.savePerson(p);
         Faker faker = new Faker();
         for(int i= 0;i<1000;i++){
             String fakeFirstName = faker.name().firstName();
@@ -136,7 +142,7 @@ public class PersonController {
             return "personForm";
         }
         var encoder = passwordEncoder();
-        var user = new XUser(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
+        var user = new User(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
         userRepo.save(user);
         dao.savePerson(p);
         return "redirect:/person/";
@@ -149,7 +155,7 @@ public class PersonController {
             return "personNewForm";
         }
         var encoder = passwordEncoder();
-        var user = new XUser(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
+        var user = new User(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
         userRepo.save(user);
         dao.savePerson(p);
         return "redirect:/person/";

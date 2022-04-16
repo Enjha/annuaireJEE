@@ -5,10 +5,9 @@
 <c:url var="findGroups" value="/group/find" />
 <c:url var="annuaire" value="/person/" />
 
+<%@ include file="navBar.jsp" %>
 
 <div class="container">
-	<%@ include file="navBar.jsp" %>
-
 	<div class="container-title">
 		<h1 class="main-title">Groupes</h1>
 	</div>
@@ -16,7 +15,9 @@
 	<form action="${findGroups}" method="post">
 		<sec:csrfInput/>
 		<p style="text-align: center;">
-			<a class="buttonDesign" href="${newGroup}">Ajouter un groupe</a>
+			<sec:authorize access="hasAnyAuthority('ADMIN')">
+				<a class="buttonDesign" href="${newGroup}">Ajouter un groupe</a>
+			</sec:authorize>
 			<span style="margin-left: 30px;"></span>
 			<select class="selectDesign" id="monselect" name="name">
 				<option value=" "> Rechercher un groupe </option>

@@ -1,6 +1,6 @@
 package mybootapp.web.security;
 
-import mybootapp.model.XUser;
+import mybootapp.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,9 +12,9 @@ public class MyUserPrincipal implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    private XUser user;
+    private User user;
 
-    public MyUserPrincipal(XUser user) {
+    public MyUserPrincipal(User user) {
         this.user = user;
     }
 
