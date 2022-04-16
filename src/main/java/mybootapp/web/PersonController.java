@@ -5,9 +5,9 @@ import mybootapp.dao.Dao;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 import mybootapp.model.User;
-import mybootapp.repo.GroupRepository;
-import mybootapp.repo.PersonRepository;
-import mybootapp.repo.UserRepository;
+import mybootapp.dao.GroupRepository;
+import mybootapp.dao.PersonRepository;
+import mybootapp.dao.UserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class PersonController {
         p.setOwnGroup(dao.findGroup(rInteger));
         dao.savePerson(p);
         Faker faker = new Faker();
-        for(int i= 0;i<1000;i++){
+        for(int i= 0;i<5;i++){
             String fakeFirstName = faker.name().firstName();
             String fakeLastName = faker.name().lastName();
             Date fakeBirthDay = faker.date().birthday();

@@ -1,10 +1,10 @@
-.containerPannel{
+.containerPanel{
     position: absolute;
-    margin-top:100px;
     top: 50%;
     left: 50%;
-    width: 1000px;
     transform: translate(-50%,-50%);
+    width: 1000px;
+    margin-top: 50px;
 }
 
 .login-panel{
@@ -21,6 +21,7 @@
 }
 .title-panel h1{
     font-size: 80px;
+    text-transform: uppercase;
 }
 
 .fields-panel{

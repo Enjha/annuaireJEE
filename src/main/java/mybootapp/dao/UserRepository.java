@@ -1,4 +1,4 @@
-package mybootapp.repo;
+package mybootapp.dao;
 
 import mybootapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

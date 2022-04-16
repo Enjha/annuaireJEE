@@ -3,7 +3,7 @@ package mybootapp.web;
 import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
-import mybootapp.repo.GroupRepository;
+import mybootapp.dao.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;

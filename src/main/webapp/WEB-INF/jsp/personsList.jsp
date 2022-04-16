@@ -15,19 +15,18 @@
         <h1 class="main-title">Annuaire</h1>
 
     </div>
-    <div style ="position: fixed; right:10px;">
-        <a class="buttonDesign" href="${personNew}">Creer nouvel utilisateur</a>
-    </div>
 
     <div style="text-align: center;">
         <form action="${findPersons}" method="post" >
             <sec:csrfInput/>
-            <p>
-                <span style="margin-left: 30px;"></span>
-                <input class="inputDesign" name="name" size="10" placeholder="ex: Thierry..."/>
-                <input class="buttonDesign" type="submit" value="Find" />
-            </p>
-
+            <div style="display: flex; justify-content: center; padding: 20px; margin: 20px; gap: 25px;">
+                <a class="buttonDesign" style="margin: 20px;" href="${group}">Voir les groupes</a>
+                <div style="display: flex; border: 1px #332cf2 solid;padding: 10px; border-radius: 25px;">
+                    <input class="inputDesign" style="width:100%;margin-top: 20px;" name="name" size="10" placeholder="ex: Thierry..." />
+                    <input class="buttonDesign" type="submit" value="Find" />
+                </div>
+                <a class="buttonDesign" style="margin: 20px;" href="${personNew}">Creer nouvel utilisateur</a>
+            </div>
         </form>
     </div>
 
@@ -48,11 +47,6 @@
             </tr>
         </c:forEach>
     </table>
-
-    <p style="text-align: center; justify-content: center; display: flex; gap: 30px;">
-        <a class="buttonDesign" href="${personNew}">Creer nouvel utilisateur</a>
-        <a class="buttonDesign" href="${group}">Voir les groupes</a>
-    </p>
 </div>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

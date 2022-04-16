@@ -17,11 +17,12 @@ import java.util.Collection;
 @Service
 @Repository("Dao")
 @Transactional
-public class Dao {
+public class Dao implements IDao{
 
     @PersistenceContext
     EntityManager em;
 
+    @Override
     public <T> Collection<T> findAll(Class<T> clazz) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(clazz);
@@ -36,7 +37,7 @@ public class Dao {
         return tq.getResultList();
     }
 
-
+    @Override
     public Person findPerson(long id) {
         if (em.find(Person.class, id) == null) {
             return null;
@@ -44,6 +45,7 @@ public class Dao {
             return em.find(Person.class, id);
     }
 
+    @Override
     public Group findGroup(long id) {
         if (em.find(Group.class, id) == null) {
             return null;
@@ -51,6 +53,7 @@ public class Dao {
             return em.find(Group.class, id);
     }
 
+    @Override
     public void savePerson(Person p) {
         if(findGroup(p.getId()) == null){
             em.persist(p);
@@ -59,6 +62,7 @@ public class Dao {
         }
     }
 
+    @Override
     public void saveGroup(Group g) {
         if(findGroup(g.getId()) == null){
             em.persist(g);
@@ -67,6 +71,7 @@ public class Dao {
         }
     }
 
+    @Override
     public <T> void remove(Class<T> clazz, Object pk) {
         T entity = em.find(clazz, pk);
         if (entity != null) {

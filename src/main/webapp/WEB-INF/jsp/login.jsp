@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="forgotPassword" value="/person/forgotPassword"/>
 
-<div class="containerPannel">
+<div class="containerPanel">
     <div class="login-panel">
         <div class="title-panel">
             <h1>Se connecter</h1>

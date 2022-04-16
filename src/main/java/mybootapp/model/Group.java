@@ -62,4 +62,13 @@ public class Group implements Serializable{
 		}
 		this.persons.add(person);
 	}
+
+	/**
+	 * Méthode equals
+	 */
+
+	public boolean equals(Group group) {
+		return (this.name.equals(group.getName()));
+	}
+
 }

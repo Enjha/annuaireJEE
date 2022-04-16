@@ -47,4 +47,12 @@ public class User {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+
+    /**
+     * Méthode equals
+     */
+
+    public boolean equals(User user) {
+        return (this.userName.equals(user.getUserName()));
+    }
 }

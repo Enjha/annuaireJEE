@@ -1,4 +1,4 @@
-package mybootapp.repo;
+package mybootapp.dao;
 
 import mybootapp.model.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
-	List<Group> findByNameLike(String name);
+	Group findByNameLike(String name);
 }

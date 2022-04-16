@@ -14,11 +14,8 @@
 
 	<form action="${findGroups}" method="post">
 		<sec:csrfInput/>
-		<p style="text-align: center;">
-			<sec:authorize access="hasAnyAuthority('ADMIN')">
-				<a class="buttonDesign" href="${newGroup}">Ajouter un groupe</a>
-			</sec:authorize>
-			<span style="margin-left: 30px;"></span>
+		<div style="display: flex; justify-content: space-between; padding: 20px; margin: 20px;">
+			<a class="buttonDesign" href="${annuaire}">Voir annuaire</a>
 			<select class="selectDesign" id="monselect" name="name">
 				<option value=" "> Rechercher un groupe </option>
 				<c:forEach items="${groups}" var="groupName">
@@ -26,7 +23,10 @@
 				</c:forEach>
 			</select>
 			<input class="buttonDesign" type="submit" value="Find"/>
-		</p>
+			<sec:authorize access="hasAnyAuthority('ADMIN')">
+				<a class="buttonDesign" href="${newGroup}">Ajouter un groupe</a>
+			</sec:authorize>
+		</div>
 	</form>
 	<div style="text-align: right" ><a style="color:grey" href="${list}">Retirer filtres</a> </div>
 	<c:forEach items="${groups}" var="group">
@@ -43,8 +43,5 @@
 		</td>
 		</p>
 	</c:forEach>
-	<p style="text-align: right;">
-		<a class="buttonDesign" href="${annuaire}">Voir annuaire</a>
-	</p>
 </div>
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>

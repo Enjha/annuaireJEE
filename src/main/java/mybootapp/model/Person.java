@@ -142,10 +142,6 @@ public class Person implements Serializable {
 	 */
 
 	public boolean equals(Person person) {
-		if (this.firstName.equals(person.getFirstName()) && this.lastName.equals(person.getLastName())
-				&& this.birthDay.equals(person.getBirthDay())) {
-			return true;
-		}
-		return false;
+		return this.email.equals(person.getEmail());
 	}
 }

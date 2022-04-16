@@ -2,6 +2,7 @@ package mybootapp.jpa;
 
 
 import mybootapp.dao.Dao;
+import mybootapp.dao.IDao;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 import mybootapp.web.Starter;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestDao {
 
     @Autowired
-    Dao dao;
+    IDao dao;
 
     static Group group1, group2, group3;
     static Person thierry, didier, valentine;

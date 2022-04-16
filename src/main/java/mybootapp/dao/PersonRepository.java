@@ -1,4 +1,4 @@
-package mybootapp.repo;
+package mybootapp.dao;
 
 import mybootapp.model.Person;
 import org.springframework.data.domain.Sort;

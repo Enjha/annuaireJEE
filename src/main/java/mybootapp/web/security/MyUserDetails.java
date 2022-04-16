@@ -1,6 +1,6 @@
 package mybootapp.web.security;
 
-import mybootapp.repo.UserRepository;
+import mybootapp.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
