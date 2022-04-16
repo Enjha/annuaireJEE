@@ -1,13 +1,10 @@
 package mybootapp.web;
 
 import com.github.javafaker.Faker;
-import mybootapp.dao.IDao;
+import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 import mybootapp.model.User;
-import mybootapp.repo.GroupRepository;
-import mybootapp.repo.PersonRepository;
-import mybootapp.repo.UserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,23 +31,14 @@ import java.util.*;
 public class PersonController {
 
     @Autowired
-    PersonRepository repo;
-
-    @Autowired
-    GroupRepository GroupRepo;
-
-    @Autowired
-    UserRepository userRepo;
-
-    @Autowired
-    IDao dao;
+    IDirectoryManager dm;
 
     protected final Log logger = LogFactory.getLog(getClass());
 
     @ModelAttribute("persons")
     Collection<Person> persons() {
         logger.info("Making list of persons");
-        return repo.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
+        return dm.findAllPersons();
     }
 
     @PostConstruct
@@ -59,8 +47,8 @@ public class PersonController {
         Person p = new Person("test", "test", date, "test@gmail.com","" , "testPourTest");
         Random r = new Random();
         int rInteger = 1 + r.nextInt(100);
-        p.setOwnGroup(dao.findGroup(rInteger));
-        dao.savePerson(p);
+        p.setOwnGroup(dm.findGroup(rInteger));
+        dm.savePerson(p);
         Faker faker = new Faker();
         for(int i= 0;i<5;i++){
             String fakeFirstName = faker.name().firstName();
@@ -75,21 +63,18 @@ public class PersonController {
 
             Random random = new Random();
             int randomInteger = 1 + random.nextInt(100);
-            person.setOwnGroup(dao.findGroup(randomInteger));
-            dao.savePerson(person);
+            person.setOwnGroup(dm.findGroup(randomInteger));
+            dm.savePerson(person);
         }
     }
 
     @RequestMapping(value = " ", method = RequestMethod.GET)
     public ModelAndView listPersons() {
         logger.info("List of persons");
-        Collection<Person> persons = repo.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
+        Collection<Person> persons = dm.findAllPersons();
         return new ModelAndView("personsList", "persons", persons);
     }
 
-    public boolean isConnectedAs( Person person) {
-        return SecurityContextHolder.getContext().getAuthentication().getName().equals(person.getEmail());
-    }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editPerson(@ModelAttribute Person p) {
@@ -98,7 +83,7 @@ public class PersonController {
             result.add(o.toString());
         }
         System.out.println(result);
-        if( isConnectedAs(p) || result.contains("ADMIN"))
+        if( dm.isConnectedAs(p) || result.contains("ADMIN"))
             return "personForm";
         else{
             return "redirect:/";
@@ -114,7 +99,7 @@ public class PersonController {
     {
         if (id != null) {
             logger.info("find person " + id);
-            return dao.findPerson(id);
+            return dm.findPerson(id);
         }
         Person p = new Person();
         p.setLastName("");
@@ -143,8 +128,8 @@ public class PersonController {
         }
         var encoder = passwordEncoder();
         var user = new User(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
-        userRepo.save(user);
-        dao.savePerson(p);
+        dm.saveUser(user);
+        dm.savePerson(p);
         return "redirect:/person/";
     }
 
@@ -156,15 +141,15 @@ public class PersonController {
         }
         var encoder = passwordEncoder();
         var user = new User(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
-        userRepo.save(user);
-        dao.savePerson(p);
+        dm.saveUser(user);
+        dm.savePerson(p);
         return "redirect:/person/";
     }
 
     @ModelAttribute("personGroup")
     public Map<Long, String> personGroups() {
         Map<Long, String> groupResult = new LinkedHashMap<>();
-        ArrayList<Group> groups = new ArrayList<>(dao.findAll(Group.class));
+        ArrayList<Group> groups = new ArrayList<>(dm.findAllGroups());
         for(Group group : groups){
             groupResult.put(group.getId(), group.getName());
         }
@@ -186,9 +171,9 @@ public class PersonController {
 
     @RequestMapping("/find")
     public ModelAndView findPersons(String name) {
-        final var result = dao.findByStringProperty(Person.class, "email", "%"+name+"%");
-        final var result1 = dao.findByStringProperty(Person.class, "lastName", "%"+name+"%");
-        final var result2 = dao.findByStringProperty(Person.class, "firstName", "%"+name+"%");
+        final var result = dm.findByStringProperty(Person.class, "email", "%"+name+"%");
+        final var result1 = dm.findByStringProperty(Person.class, "lastName", "%"+name+"%");
+        final var result2 = dm.findByStringProperty(Person.class, "firstName", "%"+name+"%");
         if (!result.containsAll(result1)){
             result.addAll(result1);
         }if (!result.containsAll(result2)){
@@ -205,7 +190,7 @@ public class PersonController {
     @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
     public String saveEditPassword(@ModelAttribute Person p) {
         var encoder = passwordEncoder();
-        Person person = dao.findOneByStringProperty(Person.class, "email", p.getEmail());
+        Person person = dm.findOneByStringProperty(Person.class, "email", p.getEmail());
         int DateADay = p.getBirthDay().getDay();
         int DateAMonth = p.getBirthDay().getMonth();
         int DateAYear = p.getBirthDay().getYear();
@@ -222,10 +207,10 @@ public class PersonController {
         person.setPassword(p.getPassword());
         person.setEmail(p.getEmail());
         person.setBirthDay(p.getBirthDay());
-        var user = dao.findOneByStringProperty(User.class, "userName", p.getEmail());
+        var user = dm.findOneByStringProperty(User.class, "userName", p.getEmail());
         user.setPassword(encoder.encode(p.getPassword()));
-        userRepo.save(user);
-        dao.savePerson(person);
+        dm.saveUser(user);
+        dm.savePerson(person);
         return "/passwordChanged";
     }
 }

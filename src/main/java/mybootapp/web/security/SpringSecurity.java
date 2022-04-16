@@ -1,5 +1,6 @@
 package mybootapp.web.security;
 
+import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.Person;
 import mybootapp.model.User;
 import mybootapp.repo.PersonRepository;
@@ -28,21 +29,18 @@ import java.util.Set;
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserRepository userRepo;
-
-    @Autowired
-    PersonRepository personRepo;
+    IDirectoryManager dm;
 
     @PostConstruct
     public void init() {
         var encoder = passwordEncoder();
-        Collection<Person> persons = personRepo.findAll();
+        Collection<Person> persons = dm.findAllPersons();
         for(Person p : persons){
             var user = new User(p.getEmail(), encoder.encode(p.getPassword()), Set.of("USER"));
-            userRepo.save(user);
+            dm.saveUser(user);
         }
         var admin = new User("admin", encoder.encode("admin"), Set.of("ADMIN","USER"));
-        userRepo.save(admin);
+        dm.saveUser(admin);
         System.out.println("--- INIT SPRING SECURITY");
     }
     @Override

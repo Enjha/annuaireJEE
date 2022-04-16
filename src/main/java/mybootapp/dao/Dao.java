@@ -2,7 +2,6 @@ package mybootapp.dao;
 
 import mybootapp.model.Group;
 import mybootapp.model.Person;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +31,6 @@ public class Dao implements IDao {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(clazz);
         Root<T> root = cq.from(clazz);
-        // clause SELECT de la requete
         cq.select(root);
         TypedQuery<T> tq = em.createQuery(cq);
 
@@ -43,37 +41,11 @@ public class Dao implements IDao {
     }
 
     @Override
-    public Person findPerson(long id) {
-        if (em.find(Person.class, id) == null) {
+    public <T> T find(Class<T> clazz, long id) {
+        if (em.find(clazz, id) == null) {
             return null;
         } else
-            return em.find(Person.class, id);
-    }
-
-    @Override
-    public Group findGroup(long id) {
-        if (em.find(Group.class, id) == null) {
-            return null;
-        } else
-            return em.find(Group.class, id);
-    }
-
-    @Override
-    public void savePerson(Person p) {
-        if (findGroup(p.getId()) == null) {
-            em.persist(p);
-        } else {
-            em.merge(p);
-        }
-    }
-
-    @Override
-    public void saveGroup(Group g) {
-        if (findGroup(g.getId()) == null) {
-            em.persist(g);
-        } else {
-            em.merge(g);
-        }
+            return em.find(clazz, id);
     }
 
     @Override
@@ -124,5 +96,15 @@ public class Dao implements IDao {
         TypedQuery<T> q = em.createQuery(cq);
 
         return q.getSingleResult();
+    }
+
+    @Override
+    public <T> void add(T entity) {
+        em.persist(entity);
+    }
+
+    @Override
+    public <T> void update(T entity) {
+        em.merge(entity);
     }
 }

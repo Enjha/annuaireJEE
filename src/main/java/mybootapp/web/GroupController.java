@@ -2,6 +2,7 @@ package mybootapp.web;
 
 import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
+import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.Group;
 import mybootapp.repo.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +21,9 @@ import java.util.Map;
 @ComponentScan(basePackageClasses = Dao.class)
 @RequestMapping("/group")
 public class GroupController {
-	/*
-	 * Injection de la DAO de manipulation des groupes.
-	 */
-	@Autowired
-	GroupRepository repo;
 
 	@Autowired
-	GroupRepository groupRepo;
-
-	@Autowired
-	Dao dao;
+	IDirectoryManager dm;
 
 	@PostConstruct
 	public void init() {
@@ -46,26 +39,26 @@ public class GroupController {
 			}
 			Group group = new Group(fakeName);
 			listName.add(fakeName);
-			dao.saveGroup(group);
+			dm.saveGroup(group);
 		}
 	}
 
 	@RequestMapping(" ")
 	public ModelAndView listGroups() {
-		return new ModelAndView("group", "groups", groupRepo.findAll());
+		return new ModelAndView("group", "groups", dm.findAllGroups());
 	}
 
 	@RequestMapping("/new")
 	public String newGroup() {
-		final var group = new Group(String.format("Groupe %d", repo.count()+1));
-		dao.saveGroup(group);
+		final var group = new Group(String.format("Groupe %d", dm.count()+1));
+		dm.saveGroup(group);
 		return "redirect:/group";
 	}
 
 
 	@RequestMapping("/find")
 	public ModelAndView findGroups(String name) {
-		final var result = dao.findByStringProperty(Group.class, "name", "%"+name+"%");
+		final var result = dm.findByStringProperty(Group.class, "name", "%"+name+"%");
 		//final var result = repo.findByNameLike("%" + name + "%");
 		return new ModelAndView("group", "groups", result);
 	}
@@ -74,7 +67,7 @@ public class GroupController {
 	@ModelAttribute("searchGroups")
 	public Map<Long, String> searchGroups() {
 		Map<Long, String> groupResult = new LinkedHashMap<>();
-		ArrayList<Group> groups = new ArrayList<>(groupRepo.findAll());
+		ArrayList<Group> groups = new ArrayList<>(dm.findAllGroups());
 		for(Group group : groups){
 			groupResult.put(group.getId(), group.getName());
 		}

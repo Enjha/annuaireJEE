@@ -3,6 +3,7 @@ package mybootapp.jpa;
 
 import mybootapp.dao.Dao;
 import mybootapp.dao.IDao;
+import mybootapp.dao.SpringConfiguration;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 import mybootapp.web.Starter;
@@ -19,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = Dao.class)
-@ContextConfiguration(classes = Starter.class)
+@ContextConfiguration(classes = SpringConfiguration.class)
 public class TestDao {
 
     @Autowired
@@ -46,15 +47,15 @@ public class TestDao {
     @Test
     public void testSaveAndFind() {
 
-        dao.saveGroup(group1);
-        dao.saveGroup(group2);
+        dao.add(group1);
+        dao.add(group2);
         didier.setOwnGroup(group1);
         thierry.setOwnGroup(group2);
-        dao.savePerson(didier);
-        dao.savePerson(thierry);
+        dao.add(didier);
+        dao.add(thierry);
 
-        Person resultPerson = dao.findPerson(3);
-        Group resultGroup = dao.findGroup(1);
+        Person resultPerson = dao.find(Person.class,3);
+        Group resultGroup = dao.find(Group.class,1);
         assertTrue(thierry.equals(resultPerson));
         assertEquals(group1.getName(), resultGroup.getName());
     }
@@ -82,13 +83,13 @@ public class TestDao {
     @Test
     public void testRemove() {
 
-        dao.saveGroup(group3);
+        dao.add(group3);
 
         dao.remove(Person.class, (long) 3);
         dao.remove(Group.class, (long) 3);
 
-        Person afterRemovePerson = dao.findPerson(3);
-        Group afterRemoveGroup = dao.findGroup(3);
+        Person afterRemovePerson = dao.find(Person.class, 3);
+        Group afterRemoveGroup = dao.find(Group.class,3);
 
         assertNull(afterRemovePerson);
         assertNull(afterRemoveGroup);
