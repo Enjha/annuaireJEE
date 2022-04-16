@@ -2,8 +2,8 @@ package mybootapp.web.security;
 
 import mybootapp.model.Person;
 import mybootapp.model.User;
-import mybootapp.dao.PersonRepository;
-import mybootapp.dao.UserRepository;
+import mybootapp.repo.PersonRepository;
+import mybootapp.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

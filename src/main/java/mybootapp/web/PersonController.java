@@ -1,13 +1,13 @@
 package mybootapp.web;
 
 import com.github.javafaker.Faker;
-import mybootapp.dao.Dao;
+import mybootapp.dao.IDao;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 import mybootapp.model.User;
-import mybootapp.dao.GroupRepository;
-import mybootapp.dao.PersonRepository;
-import mybootapp.dao.UserRepository;
+import mybootapp.repo.GroupRepository;
+import mybootapp.repo.PersonRepository;
+import mybootapp.repo.UserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class PersonController {
     UserRepository userRepo;
 
     @Autowired
-    Dao dao;
+    IDao dao;
 
     protected final Log logger = LogFactory.getLog(getClass());
 
@@ -186,9 +186,9 @@ public class PersonController {
 
     @RequestMapping("/find")
     public ModelAndView findPersons(String name) {
-        final var result = repo.findByEmailLike("%" + name + "%");
-        final var result1 = repo.findByLastNameLike("%" + name + "%");
-        final var result2 = repo.findByFirstNameLike("%" + name + "%");
+        final var result = dao.findByStringProperty(Person.class, "email", "%"+name+"%");
+        final var result1 = dao.findByStringProperty(Person.class, "lastName", "%"+name+"%");
+        final var result2 = dao.findByStringProperty(Person.class, "firstName", "%"+name+"%");
         if (!result.containsAll(result1)){
             result.addAll(result1);
         }if (!result.containsAll(result2)){
@@ -205,7 +205,7 @@ public class PersonController {
     @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
     public String saveEditPassword(@ModelAttribute Person p) {
         var encoder = passwordEncoder();
-        Person person = repo.findPersonByEmailLike(p.getEmail());
+        Person person = dao.findOneByStringProperty(Person.class, "email", p.getEmail());
         int DateADay = p.getBirthDay().getDay();
         int DateAMonth = p.getBirthDay().getMonth();
         int DateAYear = p.getBirthDay().getYear();
@@ -222,7 +222,7 @@ public class PersonController {
         person.setPassword(p.getPassword());
         person.setEmail(p.getEmail());
         person.setBirthDay(p.getBirthDay());
-        var user = userRepo.findByUserNameLike(p.getEmail());
+        var user = dao.findOneByStringProperty(User.class, "userName", p.getEmail());
         user.setPassword(encoder.encode(p.getPassword()));
         userRepo.save(user);
         dao.savePerson(person);

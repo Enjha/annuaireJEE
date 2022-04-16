@@ -3,7 +3,7 @@ package mybootapp.web;
 import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
 import mybootapp.model.Group;
-import mybootapp.dao.GroupRepository;
+import mybootapp.repo.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -65,7 +65,8 @@ public class GroupController {
 
 	@RequestMapping("/find")
 	public ModelAndView findGroups(String name) {
-		final var result = repo.findByNameLike("%" + name + "%");
+		final var result = dao.findByStringProperty(Group.class, "name", "%"+name+"%");
+		//final var result = repo.findByNameLike("%" + name + "%");
 		return new ModelAndView("group", "groups", result);
 	}
 

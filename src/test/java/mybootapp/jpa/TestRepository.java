@@ -4,9 +4,9 @@ import mybootapp.dao.Dao;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 import mybootapp.model.User;
-import mybootapp.dao.GroupRepository;
-import mybootapp.dao.PersonRepository;
-import mybootapp.dao.UserRepository;
+import mybootapp.repo.GroupRepository;
+import mybootapp.repo.PersonRepository;
+import mybootapp.repo.UserRepository;
 import mybootapp.web.Starter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -68,14 +68,14 @@ public class TestRepository {
         userRepository.save(userDidier);
         userRepository.save(userValentine);
 
-        User result = userRepository.findByUserNameLike("thierry.bourdon@hotmail.fr");
+        User result = (User) dao.findByStringProperty(User.class, "userName", "thierry.bourdon@hotmail.fr");
 
         System.out.println(userThierry.getUserName() + " " + result.getUserName());
 
         assertTrue(expected.equals(result));
     }
 
-    @Test
+   /* @Test
     public void testGroupRepositoryFindByNameLike() {
         dao.saveGroup(group1);
         dao.saveGroup(group2);
@@ -86,9 +86,9 @@ public class TestRepository {
         Group result = groupRepository.findByNameLike("Groupe 1");
 
         assertTrue(expected.equals(result));
-    }
+    } */
 
-    @Test
+  /*  @Test
     public void testPersonRepositoryFindByEmailLike() {
         dao.saveGroup(group1);
         dao.saveGroup(group2);
@@ -162,6 +162,6 @@ public class TestRepository {
         List<Person> result = personRepository.findByLastNameLike("Deschamps");
 
         assertTrue(result.get(0).equals(didier));
-    }
+    }*/
 
 }
