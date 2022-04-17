@@ -14,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.Collection;
 
 @Service
-@ContextConfiguration(classes = SpringConfiguration.class)
 public class DirectoryManager implements IDirectoryManager{
 
     @Autowired

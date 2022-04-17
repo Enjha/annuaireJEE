@@ -1,12 +1,11 @@
 package mybootapp.jpa;
 
 import mybootapp.dao.Dao;
+import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 import mybootapp.model.User;
-import mybootapp.repo.GroupRepository;
-import mybootapp.repo.PersonRepository;
-import mybootapp.repo.UserRepository;
+
 import mybootapp.web.Starter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,9 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,16 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestRepository {
 
     @Autowired
-    PersonRepository personRepository;
-
-    @Autowired
-    GroupRepository groupRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     Dao dao;
+
+    @Autowired
+    IDirectoryManager dm;
 
     static Group group1, group2, group3;
     static Person thierry, didier, valentine;
@@ -64,9 +55,9 @@ public class TestRepository {
 
         User expected = userThierry;
 
-        userRepository.save(userThierry);
-        userRepository.save(userDidier);
-        userRepository.save(userValentine);
+        dm.saveUser(userThierry);
+        dm.saveUser(userDidier);
+        dm.saveUser(userValentine);
 
         User result = (User) dao.findByStringProperty(User.class, "userName", "thierry.bourdon@hotmail.fr");
 

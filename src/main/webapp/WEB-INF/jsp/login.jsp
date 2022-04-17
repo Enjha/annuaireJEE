@@ -10,7 +10,9 @@
         </div>
 
         <form:form method="POST" action="${pageContext.request.contextPath}/login">
+
             <form:errors path="*" cssClass="alert alert-danger" element="div"/>
+
             <div class="fields-panel">
                 <div class="field">
                     <label>Email utilisateur :</label>

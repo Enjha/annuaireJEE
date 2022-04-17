@@ -3,8 +3,6 @@ package mybootapp.web.security;
 import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.Person;
 import mybootapp.model.User;
-import mybootapp.repo.PersonRepository;
-import mybootapp.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -58,7 +56,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 // -- Les autres URL nécessitent une authentification
                 .anyRequest().authenticated()
                 // -- Nous autorisons un formulaire de login
-                .and().formLogin().permitAll().loginPage("/login")
+                .and().formLogin().permitAll().loginPage("/login").failureUrl("/loginError")
                 // -- Nous autorisons un formulaire de logout
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").deleteCookies("JSESSIONID")

@@ -2,9 +2,10 @@ package mybootapp.web;
 
 import com.github.javafaker.Faker;
 import mybootapp.dao.Dao;
+import mybootapp.manager.DirectoryManager;
 import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.Group;
-import mybootapp.repo.GroupRepository;
+import org.hibernate.engine.jdbc.dialect.spi.DialectResolutionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
-@ComponentScan(basePackageClasses = Dao.class)
+@ComponentScan(basePackageClasses = {DirectoryManager.class, Dao.class})
 @RequestMapping("/group")
 public class GroupController {
 

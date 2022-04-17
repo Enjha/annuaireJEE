@@ -3,7 +3,6 @@ package mybootapp.web;
 import mybootapp.dao.Dao;
 import mybootapp.manager.DirectoryManager;
 import mybootapp.model.Group;
-import mybootapp.model.Person;
 import mybootapp.repo.GroupRepository;
 import mybootapp.repo.PersonRepository;
 import org.springframework.boot.SpringApplication;
@@ -28,9 +27,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 @SpringBootApplication()
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackageClasses = {GroupRepository.class, PersonRepository.class, Dao.class})
 @EnableTransactionManagement
-@EntityScan
+@EntityScan(basePackageClasses = { Group.class, DirectoryManager.class})
 @Configuration
 public class Starter extends SpringBootServletInitializer implements WebMvcConfigurer {
 

@@ -2,7 +2,6 @@ package mybootapp.web.security;
 
 import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.User;
-import mybootapp.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +14,6 @@ public class MyUserDetails implements UserDetailsService {
 
     @Autowired
     private IDirectoryManager dm;
-
 
     @Override
     public UserDetails loadUserByUsername(String username) {
