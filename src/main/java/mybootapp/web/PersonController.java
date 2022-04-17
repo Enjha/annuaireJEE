@@ -8,7 +8,6 @@ import mybootapp.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -50,7 +49,7 @@ public class PersonController {
         p.setOwnGroup(dm.findGroup(rInteger));
         dm.savePerson(p);
         Faker faker = new Faker();
-        for(int i= 0;i<5;i++){
+        for(int i= 0;i<1000;i++){
             String fakeFirstName = faker.name().firstName();
             String fakeLastName = faker.name().lastName();
             Date fakeBirthDay = faker.date().birthday();

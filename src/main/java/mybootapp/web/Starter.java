@@ -1,10 +1,7 @@
 package mybootapp.web;
 
-import mybootapp.dao.Dao;
 import mybootapp.manager.DirectoryManager;
 import mybootapp.model.Group;
-import mybootapp.repo.GroupRepository;
-import mybootapp.repo.PersonRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -14,7 +11,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -27,7 +23,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 @SpringBootApplication()
-@EnableJpaRepositories(basePackageClasses = {GroupRepository.class, PersonRepository.class, Dao.class})
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = { Group.class, DirectoryManager.class})
 @Configuration
