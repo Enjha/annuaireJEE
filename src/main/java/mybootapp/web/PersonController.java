@@ -5,6 +5,7 @@ import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.Group;
 import mybootapp.model.Person;
 import mybootapp.model.User;
+import mybootapp.web.utils.PersonComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class PersonController {
 
     @PostConstruct
     public void init() {
+        System.err.println("Créations des données (PEUPLEMENT) ...");
         Date date = new Date(95, Calendar.JUNE, 20);
         Person p = new Person("test", "test", date, "test@gmail.com","" , "testPourTest");
         Random r = new Random();
@@ -49,7 +51,7 @@ public class PersonController {
         p.setOwnGroup(dm.findGroup(rInteger));
         dm.savePerson(p);
         Faker faker = new Faker();
-        for(int i= 0;i<1000;i++){
+        for(int i= 0;i<50;i++){
             String fakeFirstName = faker.name().firstName();
             String fakeLastName = faker.name().lastName();
             Date fakeBirthDay = faker.date().birthday();
@@ -70,8 +72,9 @@ public class PersonController {
     @RequestMapping(value = " ", method = RequestMethod.GET)
     public ModelAndView listPersons() {
         logger.info("List of persons");
-        Collection<Person> persons = dm.findAllPersons();
-        return new ModelAndView("personsList", "persons", persons);
+        ArrayList<Person> listPerson = (ArrayList<Person>) dm.findAllPersons();
+        listPerson.sort(new PersonComparator());
+        return new ModelAndView("personsList", "persons", listPerson);
     }
 
 

@@ -15,19 +15,20 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = Dao.class)
-@ContextConfiguration(classes = SpringConfiguration.class)
+@ContextConfiguration(classes = Starter.class)
 public class TestDao {
 
     @Autowired
     IDao dao;
 
     static Group group1, group2, group3;
-    static Person thierry, didier, valentine;
+    static Person thierry, didier, valentine,toto, titi;
 
 
     @BeforeAll
@@ -41,58 +42,60 @@ public class TestDao {
         didier = new Person("Deschamps", "Didier", new Date(73, Calendar.APRIL, 28), "didier.deschamps@hotmail.fr", null, "dudul123");
         thierry = new Person("Bourdon", "Thierry", new Date(70, Calendar.DECEMBER, 12), "thierry.bourdon@hotmail.fr", null, "bourdon765");
 
+        toto = new Person("Tata", "toto", new Date(73, Calendar.APRIL, 28), "toto.tata@hotmail.fr", null, "toto984298");
+        titi = new Person("Tata", "titi", new Date(73, Calendar.APRIL, 28), "titi.tata@hotmail.fr", null, "titi478473");
+
     }
 
+    @Test
+    public void testFindOneByStringProperty() {
+        Person person = dao.findOneByStringProperty(Person.class,"lastName","test");
+        assertEquals("test@gmail.com", person.getEmail());
+    }
 
     @Test
-    public void testSaveAndFind() {
-
+    public void testAdd(){
         dao.add(group1);
+        valentine.setOwnGroup(group1);
+        dao.add(valentine);
+        Person personResult = dao.findOneByStringProperty(Person.class,"email","valentine.tirroir@etu.univ-amu.fr");
+        Group groupResult = dao.findOneByStringProperty(Group.class,"name","Groupe 1");
+        assertEquals(valentine.getEmail(),personResult.getEmail());
+        assertEquals(group1.getName(),groupResult.getName());
+    }
+
+    @Test
+    public void testFind() {
         dao.add(group2);
-        didier.setOwnGroup(group1);
         thierry.setOwnGroup(group2);
-        dao.add(didier);
         dao.add(thierry);
 
-        Person resultPerson = dao.find(Person.class,3);
-        Group resultGroup = dao.find(Group.class,1);
-        assertTrue(thierry.equals(resultPerson));
-        assertEquals(group1.getName(), resultGroup.getName());
+        Person resultPerson = dao.find(Person.class, thierry.getId());
+        Group resultGroup = dao.find(Group.class, thierry.getOwnGroup().getId());
+
+        assertNotNull(resultPerson);
+        assertNotNull(resultGroup);
     }
 
 
     @Test
-    public void testSaveAndFindAll() {
-
-        List<Person> persons = (List<Person>) dao.findAll(Person.class);
-        List<Group> groups = (List<Group>) dao.findAll(Group.class);
-
-        boolean resultPerson = true;
-        boolean resultGroup = true;
-
-        if (!persons.get(0).equals(didier)) resultPerson = false;
-        if (!persons.get(1).equals(thierry)) resultPerson = false;
-
-        if (!groups.get(0).getName().equals(group1.getName())) resultGroup = false;
-        if (!groups.get(1).getName().equals(group2.getName())) resultGroup = false;
-
-        assertTrue(resultPerson);
-        assertTrue(resultGroup);
+    public void testUpdate(){
+        thierry.setOwnGroup(group1);
+        dao.update(thierry);
+        assertEquals(thierry.getOwnGroup().getName(),"Groupe 1");
     }
 
     @Test
-    public void testRemove() {
-
+    public void testFindByStringProperty(){
         dao.add(group3);
+        toto.setOwnGroup(group3);
+        titi.setOwnGroup(group3);
 
-        dao.remove(Person.class, (long) 3);
-        dao.remove(Group.class, (long) 3);
+        dao.add(toto);
+        dao.add(titi);
 
-        Person afterRemovePerson = dao.find(Person.class, 3);
-        Group afterRemoveGroup = dao.find(Group.class,3);
+        List<Person> titiAndtoto = (List<Person>) dao.findByStringProperty(Person.class,"lastName","Tata");
 
-        assertNull(afterRemovePerson);
-        assertNull(afterRemoveGroup);
+        assertTrue((titiAndtoto.get(0).equals(toto) && titiAndtoto.get(1).equals(titi) ||(titiAndtoto.get(1).equals(toto) && titiAndtoto.get(0).equals(titi))));
     }
-
 }

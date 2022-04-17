@@ -19,4 +19,5 @@ public interface IDirectoryManager {
     <T> Collection<T> findByStringProperty(Class<T> clazz, String propertyName, String propertyValue);
     <T> T findOneByStringProperty(Class<T> clazz, String propertyName, String propertyValue);
     int count();
+
 }

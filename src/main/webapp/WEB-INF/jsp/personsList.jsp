@@ -30,7 +30,6 @@
         </form>
     </div>
 
-    <div style="text-align: right" ><a style="color:grey" href="${list}">Trier par groupes</a> </div>
     <table class="table table-hover">
         <c:forEach items="${persons}" var="pers">
             <tr>

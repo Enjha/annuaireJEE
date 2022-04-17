@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-@Repository("Dao")
+@Repository
 @Transactional
 public class Dao implements IDao {
 
@@ -44,16 +44,6 @@ public class Dao implements IDao {
             return null;
         } else
             return em.find(clazz, id);
-    }
-
-    @Override
-    public <T> void remove(Class<T> clazz, Object pk) {
-        T entity = em.find(clazz, pk);
-        if (entity != null) {
-            em.remove(entity);
-        } else {
-            System.err.println("Entity doesn't exist.");
-        }
     }
 
     @Override

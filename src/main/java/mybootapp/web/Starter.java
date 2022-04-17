@@ -1,9 +1,5 @@
 package mybootapp.web;
 
-import mybootapp.manager.DirectoryManager;
-import mybootapp.model.Group;
-import mybootapp.model.Person;
-import mybootapp.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -24,9 +20,9 @@ import org.springframework.web.util.UrlPathHelper;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-@SpringBootApplication()
+@SpringBootApplication(scanBasePackages= {"mybootapp.dao", "mybootapp.manager", "mybootapp.web"})
+@EntityScan(basePackages = "mybootapp.model")
 @EnableTransactionManagement
-@EntityScan(basePackageClasses = { Person.class, User.class, Group.class, DirectoryManager.class})
 @Configuration
 public class Starter extends SpringBootServletInitializer implements WebMvcConfigurer {
 

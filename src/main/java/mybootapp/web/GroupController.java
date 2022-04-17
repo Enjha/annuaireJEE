@@ -19,7 +19,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
-@ComponentScan(basePackageClasses = {DirectoryManager.class, Dao.class})
 @RequestMapping("/group")
 public class GroupController {
 
