@@ -33,7 +33,7 @@ public class Person implements Serializable {
 	private Date birthDay;
 
 	@Basic(optional = false)
-	@Column(name = "email", length = 50, nullable = false)
+	@Column(name = "email", length = 50, nullable = false, unique = true)
 	private String email;
 
 	@Column(name = "website", length = 200)

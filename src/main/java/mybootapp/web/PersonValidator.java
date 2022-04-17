@@ -1,6 +1,8 @@
 package mybootapp.web;
 
+import mybootapp.manager.IDirectoryManager;
 import mybootapp.model.Person;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -11,6 +13,9 @@ import java.util.regex.Pattern;
 
 @Service
 public class PersonValidator implements Validator {
+
+    @Autowired
+    IDirectoryManager directoryManager;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -99,7 +104,9 @@ public class PersonValidator implements Validator {
             return "person.email.required";
         } else if (!mat.matches()) {
             return "person.email.invalid";
-        } else
+        } else if(directoryManager.findOneByStringProperty(Person.class,"email", email) != null){
+            return "person.email.exist";
+        }else
             return "ok";
     }
 
