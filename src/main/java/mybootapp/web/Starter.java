@@ -2,6 +2,8 @@ package mybootapp.web;
 
 import mybootapp.manager.DirectoryManager;
 import mybootapp.model.Group;
+import mybootapp.model.Person;
+import mybootapp.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -24,7 +26,7 @@ import javax.servlet.ServletException;
 
 @SpringBootApplication()
 @EnableTransactionManagement
-@EntityScan(basePackageClasses = { Group.class, DirectoryManager.class})
+@EntityScan(basePackageClasses = { Person.class, User.class, Group.class, DirectoryManager.class})
 @Configuration
 public class Starter extends SpringBootServletInitializer implements WebMvcConfigurer {
 
